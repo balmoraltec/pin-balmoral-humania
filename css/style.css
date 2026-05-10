@@ -4,7 +4,7 @@
    ===================================================== */
 
 /* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
 
 /* --- CSS Variables --- */
 :root {
@@ -302,30 +302,43 @@ p  { font-size: 1rem; color: var(--text-light); line-height: 1.75; }
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 10px;
 }
 
 .navbar-links a {
-  color: rgba(255,255,255,0.85);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: var(--transition);
+  color: rgba(255,255,255,0.92);
+  font-family: 'Lora', 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  transition: all 0.25s ease;
   position: relative;
+  padding: 7px 14px;
+  border: 1.5px solid rgba(212,160,23,0.45);
+  border-radius: 999px;
+  background: rgba(212,160,23,0.06);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .navbar-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0; right: 0;
-  height: 2px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  display: none;
 }
 
-.navbar-links a:hover { color: var(--white); }
-.navbar-links a:hover::after { transform: scaleX(1); }
+.navbar-links a:hover {
+  color: #0D2B1F;
+  background: linear-gradient(135deg, #D4A017 0%, #F0C040 100%);
+  border-color: #D4A017;
+  box-shadow: 0 4px 18px rgba(212,160,23,0.45);
+  transform: translateY(-1px);
+}
+
+.navbar-links a.active {
+  color: #0D2B1F;
+  background: linear-gradient(135deg, #D4A017 0%, #F0C040 100%);
+  border-color: #D4A017;
+  box-shadow: 0 4px 16px rgba(212,160,23,0.4);
+}
 
 .navbar-cta { display: flex; align-items: center; gap: 16px; }
 
