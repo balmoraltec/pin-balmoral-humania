@@ -254,24 +254,27 @@ p  { font-size: 1rem; color: var(--text-light); line-height: 1.75; }
 }
 
 .logo-icon {
-  width: 52px;
-  height: 52px;
-  background: transparent;
-  border-radius: 0;
+  width: 72px !important;
+  height: 72px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  overflow: visible;
+  overflow: visible !important;
   flex-shrink: 0;
+  box-shadow: none !important;
 }
 
 .logo-icon img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  display: block;
+  width: 72px !important;
+  height: 72px !important;
+  object-fit: contain !important;
+  display: block !important;
   filter: drop-shadow(0 2px 8px rgba(212,160,23,0.5));
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .logo-text {
