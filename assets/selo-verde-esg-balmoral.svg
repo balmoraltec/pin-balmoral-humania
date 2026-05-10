@@ -1,0 +1,61 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Selo Verde ESG Balmoral">
+  <defs>
+    <radialGradient id="bgGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 450) rotate(90) scale(420)">
+      <stop offset="0" stop-color="#FFF7D6"/>
+      <stop offset="1" stop-color="#1A1A1A"/>
+    </radialGradient>
+    <linearGradient id="ringGreen" x1="170" y1="170" x2="730" y2="730" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B5E2A"/>
+      <stop offset="1" stop-color="#0A3F20"/>
+    </linearGradient>
+    <linearGradient id="ringGold" x1="120" y1="120" x2="780" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8D66C"/>
+      <stop offset="0.45" stop-color="#D4A017"/>
+      <stop offset="1" stop-color="#8E6500"/>
+    </linearGradient>
+    <linearGradient id="bannerGold" x1="160" y1="450" x2="740" y2="450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8E6500"/>
+      <stop offset="0.3" stop-color="#E0B335"/>
+      <stop offset="0.65" stop-color="#F4D26A"/>
+      <stop offset="1" stop-color="#9B6F00"/>
+    </linearGradient>
+    <radialGradient id="globeGreen" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 390) rotate(90) scale(210)">
+      <stop stop-color="#4EBE44"/>
+      <stop offset="1" stop-color="#0E5D28"/>
+    </radialGradient>
+    <filter id="softShadow" x="70" y="70" width="760" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="900" fill="url(#bgGlow)"/>
+
+  <g filter="url(#softShadow)">
+    <circle cx="450" cy="450" r="340" fill="url(#ringGold)"/>
+    <circle cx="450" cy="450" r="312" fill="url(#ringGreen)" stroke="#E2B93E" stroke-width="5"/>
+    <circle cx="450" cy="450" r="250" fill="#FFFFFF" stroke="#D4A017" stroke-width="8"/>
+
+    <text x="450" y="212" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="74" fill="#FFFFFF" letter-spacing="2">SELO VERDE</text>
+    <text x="450" y="700" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="64" fill="#FFFFFF" letter-spacing="2">BALMORAL</text>
+
+    <circle cx="450" cy="390" r="185" fill="url(#globeGreen)"/>
+    <ellipse cx="450" cy="398" rx="185" ry="32" fill="none" stroke="#E9E9E9" stroke-opacity="0.55" stroke-width="4"/>
+    <ellipse cx="450" cy="358" rx="150" ry="28" fill="none" stroke="#E9E9E9" stroke-opacity="0.45" stroke-width="3"/>
+    <ellipse cx="450" cy="438" rx="150" ry="28" fill="none" stroke="#E9E9E9" stroke-opacity="0.35" stroke-width="3"/>
+
+    <path d="M432 250c-35 12-72 34-95 62-26 33-39 64-43 92 26 3 50 2 69-2 18-3 33-13 43-31 15-26 36-54 61-72 9-7 9-18-3-26-8-5-20-15-32-23z" fill="#F6F6F6"/>
+    <path d="M520 270c30 10 66 31 88 57 26 31 40 61 45 90-21 3-44 3-63 0-22-3-40-14-52-33-16-26-33-50-57-68-11-8-10-20 3-27 9-5 23-12 36-19z" fill="#F6F6F6"/>
+    <path d="M420 454c14 19 21 42 20 66-1 26-10 51-30 70-20 19-49 29-78 32 2-24 10-46 23-64 13-19 33-35 65-52z" fill="#F6F6F6"/>
+
+    <path d="M265 470c0-76 61-137 137-137 0 0-62 32-73 91-8 42 8 97 45 140-61-14-109-69-109-134z" fill="#7BCB24" stroke="#FFFFFF" stroke-width="6"/>
+    <path d="M321 372c25 27 33 63 24 94" stroke="#D8F5B5" stroke-width="5" stroke-linecap="round"/>
+    <path d="M346 394c17 19 22 43 16 66" stroke="#D8F5B5" stroke-width="4" stroke-linecap="round"/>
+
+    <polygon points="635,352 645,374 669,376 651,392 656,415 635,403 614,415 619,392 601,376 625,374" fill="#D4A017"/>
+    <polygon points="635,425 645,447 669,449 651,465 656,488 635,476 614,488 619,465 601,449 625,447" fill="#D4A017"/>
+
+    <path d="M150 430h600l-28 118H178L150 430z" fill="url(#bannerGold)" stroke="#B27C00" stroke-width="4"/>
+    <text x="450" y="523" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="104" fill="#0D5B2A">ESG</text>
+  </g>
+</svg>
+

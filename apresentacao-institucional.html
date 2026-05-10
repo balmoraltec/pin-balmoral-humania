@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apresentacao Institucional - PIN Balmoral ESG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-900: #0d2b1f;
+      --green-700: #1b4332;
+      --green-500: #40916c;
+      --gold-500: #d4a017;
+      --gold-300: #f0c040;
+      --text-dark: #1a2e22;
+      --text-light: #5a7a68;
+      --white: #ffffff;
+      --off: #f8faf9;
+      --shadow: 0 10px 35px rgba(27, 67, 50, 0.18);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: Inter, Arial, sans-serif; background: #0a1628; color: var(--white); }
+
+    .deck {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 22, 40, 0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 260px;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(212, 160, 23, 0.35);
+      object-fit: cover;
+      background: var(--white);
+    }
+
+    .brand .title {
+      line-height: 1.1;
+    }
+
+    .brand .title strong { display: block; font-size: 1rem; }
+    .brand .title span { font-size: 0.74rem; letter-spacing: 2px; color: var(--gold-300); text-transform: uppercase; }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-dark { background: rgba(255,255,255,0.12); color: var(--white); }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-500), #b8860b); color: var(--white); }
+
+    .progress {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.86rem;
+      font-weight: 600;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .slides {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+    }
+
+    .slide {
+      display: none;
+      width: min(1100px, 96vw);
+      min-height: 68vh;
+      background: linear-gradient(160deg, #0d2b1f, #1b4332 58%, #0a1628);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      padding: clamp(22px, 3vw, 44px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide.active { display: block; }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,23,0.25), transparent 65%);
+    }
+
+    .slide h1, .slide h2 {
+      margin: 0 0 14px;
+      font-family: "Playfair Display", Georgia, serif;
+      line-height: 1.1;
+    }
+
+    .slide h1 { font-size: clamp(2rem, 4vw, 3rem); }
+    .slide h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
+    .slide p { color: rgba(255,255,255,0.88); font-size: clamp(0.98rem, 1.2vw, 1.08rem); line-height: 1.65; }
+
+    .kicker {
+      display: inline-block;
+      background: rgba(212,160,23,0.18);
+      border: 1px solid rgba(212,160,23,0.45);
+      color: #ffde85;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: #ffde85;
+      font-size: 1.55rem;
+      margin-bottom: 4px;
+      font-family: "Playfair Display", Georgia, serif;
+    }
+
+    .cols-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 180px;
+    }
+
+    .pill h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    .pill ul { margin: 0; padding-left: 16px; color: rgba(255,255,255,0.88); }
+    .pill li { margin-bottom: 7px; }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .step {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .step .n {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(212,160,23,0.28);
+      color: #ffde85;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .price {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 180px;
+    }
+
+    .price h3 { margin: 0 0 4px; }
+    .price .tag { color: #ffde85; font-weight: 700; font-size: 0.9rem; }
+
+    .footer-note {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .cols-3 { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .pricing { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .topbar { display: none; }
+      .slides { padding: 0; }
+      .slide { display: block !important; page-break-after: always; border-radius: 0; width: 100%; min-height: auto; box-shadow: none; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="topbar">
+      <div class="brand">
+        <img src="assets/selo-verde-esg-balmoral.svg" alt="Selo Verde ESG Balmoral" />
+        <div class="title">
+          <strong>PIN Balmoral ESG</strong>
+          <span>Apresentacao Institucional</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn btn-dark" id="prevBtn" type="button">Anterior</button>
+        <div class="progress" id="progress">1 / 10</div>
+        <button class="btn btn-dark" id="nextBtn" type="button">Proximo</button>
+        <button class="btn btn-gold" id="printBtn" type="button">Imprimir / PDF</button>
+      </div>
+    </header>
+
+      <main class="slides" id="slides">
+        <section class="slide active">
+          <span class="kicker">Capa Apresentação</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem1.png" alt="Capa Apresentação" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Sobre o Projeto</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem2.png" alt="Sobre o Projeto" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Por que a Hotelaria</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem3.png" alt="Por que a Hotelaria" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Componentes do Projeto</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem4.png" alt="Componentes do Projeto" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Benefícios para os Hotéis</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem5.png" alt="Benefícios para os Hotéis" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Pacotes de Participação</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem6.png" alt="Pacotes de Participação" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Trilha de Cursos ESG Balmoral</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem7.png" alt="Trilha de Cursos ESG Balmoral" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Novo Quadro No Programa</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem8.png" alt="Novo Quadro No Programa" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Nosso Contato</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem9.png" alt="Nosso Contato" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Agradecimentos e Impacto</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/imagem10.png" alt="Agradecimentos e Impacto" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Slide 11</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/selo-verde-esg-balmoral.svg" alt="Imagem 11" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+        <section class="slide">
+          <span class="kicker">Slide 12</span>
+          <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
+            <img src="assets/selo-verde-esg-balmoral.svg" alt="Imagem 12" style="max-width:80vw;max-height:55vh;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:18px;background:#fff;" />
+          </div>
+        </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const progress = document.getElementById('progress');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const printBtn = document.getElementById('printBtn');
+      let idx = 0;
+
+      function render() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+        progress.textContent = `${idx + 1} / ${slides.length}`;
+      }
+
+      function next() { idx = Math.min(idx + 1, slides.length - 1); render(); }
+      function prev() { idx = Math.max(idx - 1, 0); render(); }
+
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+      printBtn.addEventListener('click', () => window.print());
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') next();
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') prev();
+        if (e.key.toLowerCase() === 'p') window.print();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
+
