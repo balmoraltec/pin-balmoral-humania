@@ -1,0 +1,28 @@
+name: Cloudflare Pages Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        id: cloudflare-pages-deploy
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: pin-balmoral-humania
+          directory: .
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output deployed URL
+        run: echo "Cloudflare URL -> ${{ steps.cloudflare-pages-deploy.outputs.url }}"
+

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico ESG Gratuito — PIN Balmoral ESG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @keyframes shake {
+      0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)}
+    }
+    .diag-step { display: none; }
+    .diag-step.active { display: block; animation: fadeInUp 0.5s ease; }
+  </style>
+</head>
+<body style="background:var(--off-white);">
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">📌</div>
+        <div class="logo-text">
+          <span class="logo-main">PIN Balmoral</span>
+          <span class="logo-sub">ESG Hotelaria</span>
+        </div>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="index.html#problema">O Problema</a></li>
+        <li><a href="index.html#solucao">Solução</a></li>
+        <li><a href="trilha.html">Trilha ESG</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="index.html" class="btn btn-outline btn-sm">← Voltar</a>
+        <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      </div>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- DIAG HERO -->
+<section style="background:linear-gradient(160deg,var(--green-dark),var(--navy)); padding:100px 0 60px; text-align:center; position:relative; overflow:hidden;">
+  <div class="hero-grid"></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <span class="badge badge-gold" style="margin-bottom:20px; display:inline-flex;"><i class="fa-solid fa-chart-line"></i> 100% Gratuito — Resultado em 2 minutos</span>
+    <h1 style="color:var(--white); margin-bottom:16px;">Diagnóstico ESG do <span style="background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Seu Hotel</span></h1>
+    <p style="color:rgba(255,255,255,0.7); max-width:560px; margin:0 auto; font-size:1.05rem;">Responda 5 perguntas rápidas e descubra o score ESG atual do seu hotel, os gargalos identificados e as próximas ações recomendadas.</p>
+  </div>
+</section>
+
+<!-- DIAG FORM -->
+<section class="diag-section section-padding-sm">
+  <div class="container">
+    <div class="diag-card animate-on-scroll">
+
+      <!-- Step Indicator -->
+      <div class="steps-indicator">
+        <div class="step-dot active" id="stepDot0">1</div>
+        <div class="step-line" id="stepLine0"></div>
+        <div class="step-dot pending" id="stepDot1">2</div>
+        <div class="step-line" id="stepLine1"></div>
+        <div class="step-dot pending" id="stepDot2">3</div>
+        <div class="step-line" id="stepLine2"></div>
+        <div class="step-dot pending" id="stepDot3">4</div>
+        <div class="step-line" id="stepLine3"></div>
+        <div class="step-dot pending" id="stepDot4">5</div>
+      </div>
+
+      <!-- STEP 0: Ambiental -->
+      <div class="diag-step active" data-step="0">
+        <div class="diag-question">🌿 Práticas Ambientais</div>
+        <div class="diag-question-sub">Como seu hotel gerencia energia, água e resíduos atualmente?</div>
+        <div class="diag-options">
+          <div class="diag-option" data-value="a">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌟</div>
+            <div>
+              <div class="diag-option-label">Temos programas estruturados com metas e relatórios anuais</div>
+              <div class="diag-option-sub">Gestão de energia solar, reúso de água, compostagem, inventário de CO₂</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="b">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">✅</div>
+            <div>
+              <div class="diag-option-label">Temos iniciativas pontuais sem formalização completa</div>
+              <div class="diag-option-sub">Algumas práticas de economia, reciclagem básica, sem relatórios formais</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="c">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌱</div>
+            <div>
+              <div class="diag-option-label">Estamos começando, temos poucas práticas implementadas</div>
+              <div class="diag-option-sub">Conhecemos o tema mas ainda não estruturamos iniciativas formais</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="d">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">❌</div>
+            <div>
+              <div class="diag-option-label">Não temos nenhuma prática ambiental estruturada</div>
+              <div class="diag-option-sub">O tema ainda não chegou na nossa pauta operacional</div>
+            </div>
+          </div>
+        </div>
+        <div class="diag-nav">
+          <div>
+            <div class="diag-progress-text" id="diagProgressText">Pergunta 1 de 5</div>
+            <div class="diag-progress-bar"><div class="diag-progress-fill" id="diagProgressFill" style="width:0%;"></div></div>
+          </div>
+          <button class="btn btn-primary btn-next" data-step="0">
+            Próxima <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 1: Social -->
+      <div class="diag-step" data-step="1">
+        <div class="diag-question">🤝 Gestão Social e Pessoas</div>
+        <div class="diag-question-sub">Como seu hotel trata a questão de diversidade, inclusão e relação com a comunidade?</div>
+        <div class="diag-options">
+          <div class="diag-option" data-value="a">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌟</div>
+            <div>
+              <div class="diag-option-label">Temos políticas formais de DEI e programas comunitários ativos</div>
+              <div class="diag-option-sub">Política de diversidade escrita, canal de denúncias, parcerias com comunidade local</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="b">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">✅</div>
+            <div>
+              <div class="diag-option-label">Nos preocupamos com o tema mas sem políticas formalizadas</div>
+              <div class="diag-option-sub">Boas práticas informais, contratação local, respeito às leis trabalhistas</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="c">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌱</div>
+            <div>
+              <div class="diag-option-label">Cumprimos apenas o legal trabalhista, sem programas extras</div>
+              <div class="diag-option-sub">Seguimos a CLT, mas não temos ações de diversidade ou impacto social</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="d">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">❌</div>
+            <div>
+              <div class="diag-option-label">Nunca abordamos diversidade ou impacto social formalmente</div>
+              <div class="diag-option-sub">Não é uma prioridade no nosso modelo de gestão atual</div>
+            </div>
+          </div>
+        </div>
+        <div class="diag-nav">
+          <button class="btn btn-outline-green btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+          <button class="btn btn-primary btn-next" data-step="1">
+            Próxima <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Governança -->
+      <div class="diag-step" data-step="2">
+        <div class="diag-question">⚖️ Governança e Transparência</div>
+        <div class="diag-question-sub">Seu hotel possui estrutura de governança corporativa e divulga informações aos stakeholders?</div>
+        <div class="diag-options">
+          <div class="diag-option" data-value="a">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌟</div>
+            <div>
+              <div class="diag-option-label">Temos relatório ESG/Sustentabilidade publicado, compliance e auditoria</div>
+              <div class="diag-option-sub">Relatório GRI ou similar, código de ética, canal de denúncias, LGPD implementada</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="b">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">✅</div>
+            <div>
+              <div class="diag-option-label">Temos controles internos básicos e conformidade regulatória</div>
+              <div class="diag-option-sub">Auditoria contábil, conformidade fiscal e trabalhista, mas sem relatório ESG</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="c">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌱</div>
+            <div>
+              <div class="diag-option-label">Gestão familiar/informal — pouca estrutura de governança</div>
+              <div class="diag-option-sub">Decisões centralizadas, sem processos formais de prestação de contas</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="d">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">❌</div>
+            <div>
+              <div class="diag-option-label">Não temos estrutura de governança além do básico legal</div>
+              <div class="diag-option-sub">Sem relatórios, sem compliance estruturado, sem políticas formais</div>
+            </div>
+          </div>
+        </div>
+        <div class="diag-nav">
+          <button class="btn btn-outline-green btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+          <button class="btn btn-primary btn-next" data-step="2">
+            Próxima <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Crédito -->
+      <div class="diag-step" data-step="3">
+        <div class="diag-question">🏦 Acesso a Crédito e Relacionamento com Bancos</div>
+        <div class="diag-question-sub">Seu hotel já foi impactado por exigências ESG em processos de crédito ou financiamento?</div>
+        <div class="diag-options">
+          <div class="diag-option" data-value="a">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">💚</div>
+            <div>
+              <div class="diag-option-label">Já acessamos linhas ESG com taxas diferenciadas</div>
+              <div class="diag-option-sub">Temos financiamento verde ativo, boa relação com bancos públicos e privados</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="b">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🟡</div>
+            <div>
+              <div class="diag-option-label">Nunca tentamos linha ESG mas não tivemos problemas de crédito</div>
+              <div class="diag-option-sub">Crédito convencional disponível, mas não otimizado para ESG</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="c">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🟠</div>
+            <div>
+              <div class="diag-option-label">Sentimos dificuldades em crédito mas não sabemos se é por ESG</div>
+              <div class="diag-option-sub">Taxas altas, exigências crescentes, processo de aprovação mais lento</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="d">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🔴</div>
+            <div>
+              <div class="diag-option-label">Já tivemos crédito negado ou restringido por falta de ESG</div>
+              <div class="diag-option-sub">O banco explicitamente pediu comprovação ESG que não pudemos fornecer</div>
+            </div>
+          </div>
+        </div>
+        <div class="diag-nav">
+          <button class="btn btn-outline-green btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+          <button class="btn btn-primary btn-next" data-step="3">
+            Próxima <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Relatórios -->
+      <div class="diag-step" data-step="4">
+        <div class="diag-question">📊 Relatórios e Comunicação ESG</div>
+        <div class="diag-question-sub">Como seu hotel comunica suas práticas sustentáveis para o mercado e stakeholders?</div>
+        <div class="diag-options">
+          <div class="diag-option" data-value="a">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌟</div>
+            <div>
+              <div class="diag-option-label">Publicamos relatório ESG anual e divulgamos em todos os canais</div>
+              <div class="diag-option-sub">Relatório GRI no site, selos nas OTAs, comunicação ativa nas redes sociais</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="b">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">✅</div>
+            <div>
+              <div class="diag-option-label">Comunicamos algumas práticas mas sem relatório estruturado</div>
+              <div class="diag-option-sub">Posts esporádicos, selos de alguns programas, sem relatório formal</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="c">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">🌱</div>
+            <div>
+              <div class="diag-option-label">Não comunicamos nossas práticas sistematicamente</div>
+              <div class="diag-option-sub">Fazemos coisas mas não sabemos como comunicar de forma estruturada</div>
+            </div>
+          </div>
+          <div class="diag-option" data-value="d">
+            <div class="diag-option-marker"></div>
+            <div class="diag-option-icon">❌</div>
+            <div>
+              <div class="diag-option-label">Não temos nada estruturado sobre comunicação ESG</div>
+              <div class="diag-option-sub">Nunca abordamos isso internamente ou externamente</div>
+            </div>
+          </div>
+        </div>
+        <div class="diag-nav">
+          <button class="btn btn-outline-green btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+          <button class="btn btn-primary btn-next" data-step="4">
+            <i class="fa-solid fa-chart-pie"></i> Ver Meu Resultado
+          </button>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="diag-step" id="diagResult" style="display:none; text-align:center;">
+        <div style="margin-bottom:12px;">
+          <span class="badge badge-gold"><i class="fa-solid fa-chart-pie"></i> Diagnóstico Concluído</span>
+        </div>
+
+        <canvas id="resultChart" width="200" height="200" style="display:block;margin:0 auto 20px;"></canvas>
+
+        <div class="result-title" id="resultLevel">Analisando seu resultado...</div>
+        <div class="result-desc" id="resultDesc" style="max-width:560px; margin:0 auto 32px;"></div>
+
+        <!-- Breakdown -->
+        <div class="result-breakdown" style="max-width:480px; margin:0 auto 32px; text-align:left;">
+          <div class="breakdown-item">
+            <div class="breakdown-label">
+              <span>🌿 Ambiental</span>
+              <span id="resultEScore">—</span>
+            </div>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill fill-e" id="fillE" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-label">
+              <span>🤝 Social</span>
+              <span id="resultSScore">—</span>
+            </div>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill fill-s" id="fillS" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-label">
+              <span>⚖️ Governança</span>
+              <span id="resultGScore">—</span>
+            </div>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill fill-g" id="fillG" style="width:0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--gray-100); border-radius:var(--radius-md); padding:24px; max-width:480px; margin:0 auto 32px; text-align:left; border:1px solid var(--gray-200);">
+          <div style="font-weight:700; color:var(--text-dark); margin-bottom:12px; font-size:0.95rem;">📋 Próximos Passos Recomendados:</div>
+          <div style="display:grid; gap:10px;">
+            <div style="display:flex; gap:10px; font-size:0.88rem; color:var(--text-mid); align-items:flex-start;">
+              <i class="fa-solid fa-circle-1" style="color:var(--gold); flex-shrink:0; margin-top:2px;"></i>
+              Acesse a Trilha ESG Balmoral e inicie pelos módulos com menor score
+            </div>
+            <div style="display:flex; gap:10px; font-size:0.88rem; color:var(--text-mid); align-items:flex-start;">
+              <i class="fa-solid fa-circle-2" style="color:var(--gold); flex-shrink:0; margin-top:2px;"></i>
+              Agende uma consultoria gratuita com nossos especialistas
+            </div>
+            <div style="display:flex; gap:10px; font-size:0.88rem; color:var(--text-mid); align-items:flex-start;">
+              <i class="fa-solid fa-circle-3" style="color:var(--gold); flex-shrink:0; margin-top:2px;"></i>
+              Conheça as linhas de crédito ESG disponíveis para seu perfil de hotel
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:1.5rem; font-weight:700; color:var(--text-dark);">Score Total: <span id="resultTotalScore" style="color:var(--green-deep);">—</span>%</div>
+
+        <div class="result-actions" style="margin-top:28px;">
+          <a href="trilha.html" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-route"></i> Iniciar Trilha ESG Agora
+          </a>
+          <a href="dashboard.html" class="btn btn-secondary">
+            <i class="fa-solid fa-gauge-high"></i> Ver Dashboard
+          </a>
+          <button class="btn btn-outline-green" id="restartDiag">
+            <i class="fa-solid fa-rotate-right"></i> Refazer
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Trust Signals -->
+    <div style="text-align:center; margin-top:40px;" class="animate-on-scroll">
+      <div style="display:flex; justify-content:center; gap:32px; flex-wrap:wrap; margin-bottom:16px;">
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-light); font-size:0.85rem;">
+          <i class="fa-solid fa-shield-halved" style="color:var(--green-med);"></i> 100% Seguro
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-light); font-size:0.85rem;">
+          <i class="fa-solid fa-lock" style="color:var(--green-med);"></i> Dados protegidos (LGPD)
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-light); font-size:0.85rem;">
+          <i class="fa-solid fa-certificate" style="color:var(--green-med);"></i> Metodologia validada
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; color:var(--text-light); font-size:0.85rem;">
+          <i class="fa-solid fa-gift" style="color:var(--green-med);"></i> Resultado gratuito
+        </div>
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-light);">+847 hotéis já realizaram este diagnóstico • Média de avaliação: ⭐⭐⭐⭐⭐ 4.9/5</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER compact -->
+<footer style="background:var(--navy); padding:32px 0; margin-top:60px;">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div class="navbar-logo">
+        <div class="logo-icon">📌</div>
+        <div class="logo-text">
+          <span class="logo-main">PIN Balmoral</span>
+          <span class="logo-sub">ESG Hotelaria</span>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.35); font-size:0.82rem;">© 2026 PIN Balmoral ESG. Todos os direitos reservados.</p>
+      <div style="display:flex; gap:16px;">
+        <a href="index.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Home</a>
+        <a href="trilha.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Trilha</a>
+        <a href="dashboard.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toastMsg"><i class="fa-solid fa-check-circle"></i></div>
+
+<script src="js/main.js"></script>
+<script src="js/diagnostico.js"></script>
+</body>
+</html>
+

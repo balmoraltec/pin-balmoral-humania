@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — PIN Balmoral ESG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { background: var(--gray-100); }
+    .dash-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .dash-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .card-section { background: var(--white); border-radius: var(--radius-md); padding: 28px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); }
+    .card-section h4 { margin-bottom: 20px; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+    .card-section h4 i { color: var(--green-med); }
+    /* Trilha dash items */
+    .dash-trilha-item { margin-bottom: 16px; }
+    .dash-trilha-meta { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+    .dash-trilha-meta span { color: var(--text-dark); font-weight: 600; }
+    .dash-trilha-meta small { color: var(--text-light); }
+    .dash-trilha-track { height: 8px; background: var(--gray-100); border-radius: var(--radius-full); overflow: hidden; }
+    .dash-trilha-fill { height: 100%; background: linear-gradient(90deg, var(--green-med), var(--green-light)); border-radius: var(--radius-full); width: 0; transition: width 1.2s ease; }
+    .dash-trilha-fill.gold { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+    .dash-trilha-fill.blue { background: linear-gradient(90deg, #2980B9, #5DADE2); }
+    /* Notificacoes */
+    .notif-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-dot-type { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .notif-type-alert  { background: var(--danger); }
+    .notif-type-info   { background: var(--green-med); }
+    .notif-type-gold   { background: var(--gold); }
+    .notif-text h6 { font-size: 0.88rem; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+    .notif-text p  { font-size: 0.78rem; color: var(--text-light); }
+    .notif-time    { font-size: 0.72rem; color: var(--text-light); margin-left: auto; flex-shrink: 0; }
+    /* Ações rápidas */
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .quick-btn { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; cursor: pointer; text-align: center; transition: var(--transition); }
+    .quick-btn:hover { background: var(--green-deep); border-color: var(--green-deep); }
+    .quick-btn:hover .quick-btn-icon { color: var(--gold); }
+    .quick-btn:hover .quick-btn-label { color: var(--white); }
+    .quick-btn-icon  { font-size: 1.5rem; margin-bottom: 6px; color: var(--green-mid); }
+    .quick-btn-label { font-size: 0.82rem; font-weight: 600; color: var(--text-dark); }
+    /* Hamburguer sidebar mobile */
+    .sidebar-toggle { display: none; position: fixed; bottom: 24px; right: 24px; z-index: 200; width: 52px; height: 52px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md); }
+    @media (max-width: 1024px) {
+      .dash-grid-2 { grid-template-columns: 1fr; }
+      .dash-grid-3 { grid-template-columns: 1fr; }
+      .score-dashboard-grid { grid-template-columns: 1fr; }
+      .quick-actions { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.3s; position: fixed; }
+      .sidebar.open { transform: translateX(0); }
+      .dashboard-main { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="navbar-logo" style="text-decoration:none;">
+        <div class="logo-icon" style="width:40px;height:40px;font-size:1.1rem;">📌</div>
+        <div class="logo-text">
+          <span class="logo-main" style="font-size:1.1rem;">PIN Balmoral</span>
+          <span class="logo-sub">ESG Hotelaria</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Principal</div>
+      <div class="sidebar-link active" data-section="overview">
+        <i class="fa-solid fa-gauge-high"></i><span>Visão Geral</span>
+      </div>
+      <div class="sidebar-link" data-section="score">
+        <i class="fa-solid fa-chart-pie"></i><span>Score ESG</span>
+      </div>
+      <div class="sidebar-link" data-section="trilha">
+        <i class="fa-solid fa-route"></i><span>Trilha ESG</span>
+      </div>
+      <div class="sidebar-link" data-section="tarefas">
+        <i class="fa-solid fa-list-check"></i><span>Tarefas</span>
+      </div>
+
+      <div class="sidebar-section-label">Gestão</div>
+      <div class="sidebar-link" data-section="documentos">
+        <i class="fa-solid fa-folder-open"></i><span>Documentos</span>
+      </div>
+      <div class="sidebar-link" data-section="relatorio">
+        <i class="fa-solid fa-file-chart-column"></i><span>Relatório ESG</span>
+      </div>
+      <div class="sidebar-link" data-section="credito">
+        <i class="fa-solid fa-hand-holding-dollar"></i><span>Crédito ESG</span>
+      </div>
+
+      <div class="sidebar-section-label">Configurações</div>
+      <div class="sidebar-link" onclick="window.location='index.html'">
+        <i class="fa-solid fa-globe"></i><span>Site Público</span>
+      </div>
+      <div class="sidebar-link" onclick="window.location='diagnostico.html'">
+        <i class="fa-solid fa-chart-line"></i><span>Novo Diagnóstico</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar-sm">🏨</div>
+      <div>
+        <div class="user-name">Hotel Grand Balmoral</div>
+        <div class="user-role">📌 PIN Gold em andamento</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="dashboard-main">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <div class="dash-header-title" id="dashTitle">Visão Geral</div>
+        <div class="dash-header-sub">Maio 2026 • Hotel Grand Balmoral São Paulo</div>
+      </div>
+      <div class="dash-header-actions">
+        <div class="notif-btn">
+          <i class="fa-solid fa-bell"></i>
+          <div class="notif-dot"></div>
+        </div>
+        <div class="notif-btn" onclick="window.location='diagnostico.html'" title="Novo diagnóstico">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="user-avatar-sm" style="cursor:pointer; font-size:0.9rem;">🏨</div>
+        <a href="index.html" class="btn btn-outline-green btn-sm">
+          <i class="fa-solid fa-globe"></i> Site
+        </a>
+      </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+
+      <!-- ===== OVERVIEW ===== -->
+      <div class="dash-section active" id="sec-overview">
+
+        <!-- Top Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon green"><i class="fa-solid fa-leaf"></i></div>
+            <div>
+              <div class="metric-num" id="metricScore">74</div>
+              <div class="metric-label">Score ESG Total</div>
+              <div class="metric-trend up"><i class="fa-solid fa-arrow-trend-up"></i> +8 pts vs. mês anterior</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon gold"><i class="fa-solid fa-list-check"></i></div>
+            <div>
+              <div class="metric-num" id="metricTarefas">12</div>
+              <div class="metric-label">Tarefas Pendentes</div>
+              <div class="metric-trend down"><i class="fa-solid fa-arrow-trend-down"></i> -3 esta semana</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon blue"><i class="fa-solid fa-route"></i></div>
+            <div>
+              <div class="metric-num" id="metricModulos">4/6</div>
+              <div class="metric-label">Módulos Concluídos</div>
+              <div class="metric-trend up"><i class="fa-solid fa-arrow-trend-up"></i> 67% da trilha</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon purple"><i class="fa-solid fa-medal"></i></div>
+            <div>
+              <div class="metric-num" id="metricDias">47</div>
+              <div class="metric-label">Dias para Auditoria PIN Gold</div>
+              <div class="metric-trend up"><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> No prazo</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score + Tarefas Rápidas -->
+        <div class="dash-grid-3">
+          <!-- Score Card -->
+          <div class="score-dashboard-card">
+            <h4 style="margin-bottom:28px; color:var(--text-dark);">
+              <i class="fa-solid fa-chart-pie" style="color:var(--green-med);"></i>
+              Score ESG por Pilar
+            </h4>
+            <div class="score-dashboard-grid">
+              <div class="score-ring-wrap">
+                <canvas id="scoreRing" width="180" height="180"></canvas>
+                <div class="score-ring-num">74<span style="font-size:1.2rem;color:var(--text-light);">/100</span></div>
+                <div class="score-ring-label">Score ESG Global</div>
+                <div style="margin-top:12px;">
+                  <span class="badge badge-gold"><i class="fa-solid fa-medal"></i> PIN Gold — Em Andamento</span>
+                </div>
+              </div>
+              <div class="score-pillars-breakdown">
+                <div class="pillar-bar-item">
+                  <div class="pillar-bar-header">
+                    <div class="pillar-bar-name">
+                      <div class="pillar-bar-icon e"><i class="fa-solid fa-leaf"></i></div>
+                      Ambiental
+                    </div>
+                    <div class="pillar-bar-pct">82%</div>
+                  </div>
+                  <div class="pillar-bar-track">
+                    <div class="pillar-bar-fill fill-ambiental" id="barE" style="width:0%;"></div>
+                  </div>
+                </div>
+                <div class="pillar-bar-item">
+                  <div class="pillar-bar-header">
+                    <div class="pillar-bar-name">
+                      <div class="pillar-bar-icon s"><i class="fa-solid fa-users"></i></div>
+                      Social
+                    </div>
+                    <div class="pillar-bar-pct">71%</div>
+                  </div>
+                  <div class="pillar-bar-track">
+                    <div class="pillar-bar-fill fill-social" id="barS" style="width:0%;"></div>
+                  </div>
+                </div>
+                <div class="pillar-bar-item">
+                  <div class="pillar-bar-header">
+                    <div class="pillar-bar-name">
+                      <div class="pillar-bar-icon g"><i class="fa-solid fa-scale-balanced"></i></div>
+                      Governança
+                    </div>
+                    <div class="pillar-bar-pct">68%</div>
+                  </div>
+                  <div class="pillar-bar-track">
+                    <div class="pillar-bar-fill fill-governanca" id="barG" style="width:0%;"></div>
+                  </div>
+                </div>
+
+                <div style="margin-top:24px; padding:16px; background:var(--gray-100); border-radius:var(--radius-sm);">
+                  <div style="font-size:0.82rem; color:var(--text-light); margin-bottom:8px;">🎯 Próximo nível: PIN Platinum</div>
+                  <div style="font-size:0.85rem; font-weight:600; color:var(--text-dark);">Faltam 19 pontos no Score Global</div>
+                  <div style="font-size:0.8rem; color:var(--text-light); margin-top:4px;">Foco: Governança (32 pts de alcance)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions + Notifications -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <!-- Quick Actions -->
+            <div class="card-section">
+              <h4><i class="fa-solid fa-bolt"></i> Ações Rápidas</h4>
+              <div class="quick-actions">
+                <div class="quick-btn" onclick="window.location='trilha.html'">
+                  <div class="quick-btn-icon">📚</div>
+                  <div class="quick-btn-label">Continuar Trilha</div>
+                </div>
+                <div class="quick-btn" onclick="window.location='diagnostico.html'">
+                  <div class="quick-btn-icon">📊</div>
+                  <div class="quick-btn-label">Novo Diagnóstico</div>
+                </div>
+                <div class="quick-btn" onclick="showToast('Relatório sendo gerado em PDF...', 'fa-file-pdf')">
+                  <div class="quick-btn-icon">📄</div>
+                  <div class="quick-btn-label">Gerar Relatório</div>
+                </div>
+                <div class="quick-btn" onclick="showToast('Conectando com parceiros financeiros ESG...', 'fa-hand-holding-dollar')">
+                  <div class="quick-btn-icon">💳</div>
+                  <div class="quick-btn-label">Acessar Crédito</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="card-section">
+              <h4><i class="fa-solid fa-bell"></i> Notificações
+                <span style="margin-left:auto; background:var(--danger); color:white; border-radius:var(--radius-full); padding:2px 8px; font-size:0.7rem; font-weight:700;">3</span>
+              </h4>
+              <div>
+                <div class="notif-item">
+                  <div class="notif-dot-type notif-type-alert"></div>
+                  <div class="notif-text">
+                    <h6>⚠️ Módulo 5 pendente</h6>
+                    <p>Prazo para liberação do PIN: 47 dias</p>
+                  </div>
+                  <div class="notif-time">Hoje</div>
+                </div>
+                <div class="notif-item">
+                  <div class="notif-dot-type notif-type-gold"></div>
+                  <div class="notif-text">
+                    <h6>💳 Nova linha de crédito disponível</h6>
+                    <p>BNDES abre R$50M para hotéis com PIN Silver+</p>
+                  </div>
+                  <div class="notif-time">2h</div>
+                </div>
+                <div class="notif-item">
+                  <div class="notif-dot-type notif-type-info"></div>
+                  <div class="notif-text">
+                    <h6>📈 Score melhorou +8 pontos</h6>
+                    <p>Tarefa de gestão de água concluída com sucesso</p>
+                  </div>
+                  <div class="notif-time">Ontem</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarefas + Trilha Overview -->
+        <div class="dash-grid-2">
+          <!-- Tarefas Prioritárias -->
+          <div class="tasks-card">
+            <h4><i class="fa-solid fa-list-check" style="color:var(--green-med);"></i> Tarefas Prioritárias para PIN Gold</h4>
+            <div>
+              <div class="task-item done">
+                <div class="task-check"><i class="fa-solid fa-check"></i></div>
+                <div class="task-text">
+                  <h6>Implementar política de gestão de resíduos sólidos</h6>
+                  <p>Criação de doc + treinamento equipe de limpeza</p>
+                </div>
+                <div class="task-priority baixa">Feito</div>
+              </div>
+              <div class="task-item done">
+                <div class="task-check"><i class="fa-solid fa-check"></i></div>
+                <div class="task-text">
+                  <h6>Instalar medidores individuais por andar — água e energia</h6>
+                  <p>Integração com planilha de consumo mensal</p>
+                </div>
+                <div class="task-priority baixa">Feito</div>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <div class="task-text">
+                  <h6>Publicar Código de Ética e Canal de Denúncias</h6>
+                  <p>Criar documento + comunicar a todos os colaboradores</p>
+                </div>
+                <div class="task-priority alta">Alta</div>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <div class="task-text">
+                  <h6>Completar inventário de emissões de CO₂ (Scope 1 e 2)</h6>
+                  <p>Usar planilha do Módulo 2 da trilha</p>
+                </div>
+                <div class="task-priority alta">Alta</div>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <div class="task-text">
+                  <h6>Implementar política de diversidade e inclusão formal</h6>
+                  <p>RH responsável — prazo: 30/06/2026</p>
+                </div>
+                <div class="task-priority media">Média</div>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <div class="task-text">
+                  <h6>Concluir treinamento LGPD com equipe de recepção</h6>
+                  <p>Material disponível na plataforma</p>
+                </div>
+                <div class="task-priority media">Média</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trilha Progress -->
+          <div class="card-section">
+            <h4><i class="fa-solid fa-route"></i> Progresso da Trilha ESG</h4>
+            <div>
+              <div class="dash-trilha-item" data-progress="100">
+                <div class="dash-trilha-meta">
+                  <span>✅ Módulo 1 — Fundamentos ESG</span>
+                  <small>Concluído</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill" style="width:100%; background:linear-gradient(90deg,var(--success),#2ECC71);"></div>
+                </div>
+              </div>
+              <div class="dash-trilha-item" data-progress="100">
+                <div class="dash-trilha-meta">
+                  <span>✅ Módulo 2 — Diagnóstico Ambiental</span>
+                  <small>Concluído</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill" style="width:100%; background:linear-gradient(90deg,var(--success),#2ECC71);"></div>
+                </div>
+              </div>
+              <div class="dash-trilha-item" data-progress="100">
+                <div class="dash-trilha-meta">
+                  <span>✅ Módulo 3 — Práticas Sociais</span>
+                  <small>Concluído</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill" style="width:100%; background:linear-gradient(90deg,var(--success),#2ECC71);"></div>
+                </div>
+              </div>
+              <div class="dash-trilha-item" data-progress="100">
+                <div class="dash-trilha-meta">
+                  <span>✅ Módulo 4 — Governança</span>
+                  <small>Concluído</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill" style="width:100%; background:linear-gradient(90deg,var(--success),#2ECC71);"></div>
+                </div>
+              </div>
+              <div class="dash-trilha-item" data-progress="35">
+                <div class="dash-trilha-meta">
+                  <span>🔄 Módulo 5 — Certificação PIN</span>
+                  <small style="color:var(--gold);">35% — Em andamento</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill gold" id="progM5" style="width:0%;"></div>
+                </div>
+              </div>
+              <div class="dash-trilha-item" data-progress="0">
+                <div class="dash-trilha-meta">
+                  <span style="color:var(--gray-500);">🔒 Módulo 6 — Crédito ESG</span>
+                  <small style="color:var(--gray-500);">Bloqueado</small>
+                </div>
+                <div class="dash-trilha-track">
+                  <div class="dash-trilha-fill" style="width:0%;"></div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:20px;">
+              <a href="trilha.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+                <i class="fa-solid fa-play"></i> Continuar no Módulo 5
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SCORE SECTION ===== -->
+      <div class="dash-section" id="sec-score">
+        <h3 style="margin-bottom:24px;">📊 Análise Detalhada do Score ESG</h3>
+        <div class="card-section" style="margin-bottom:24px;">
+          <h4><i class="fa-solid fa-chart-line"></i> Evolução do Score — Últimos 6 Meses</h4>
+          <div style="display:flex; gap:12px; margin-top:16px; align-items:flex-end; justify-content:center; height:160px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1;">
+              <div style="background:var(--green-light);border-radius:4px;width:100%;flex:1;max-height:40px;margin-top:auto;"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Dez'25</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">52</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1;">
+              <div style="background:var(--green-med);border-radius:4px;width:100%;max-height:55px;margin-top:auto;"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Jan'26</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">58</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1;">
+              <div style="background:var(--green-deep);border-radius:4px;width:100%;max-height:70px;margin-top:auto;"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Fev'26</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">63</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1;">
+              <div style="background:var(--gold-light);border-radius:4px;width:100%;max-height:85px;margin-top:auto;"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Mar'26</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">68</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1;">
+              <div style="background:var(--gold);border-radius:4px;width:100%;max-height:100px;margin-top:auto;"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Abr'26</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--text-dark);">71</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px; flex:1; position:relative;">
+              <div style="background:linear-gradient(180deg,var(--gold),var(--green-deep));border-radius:4px;width:100%;max-height:120px;margin-top:auto; box-shadow:0 0 12px rgba(212,160,23,0.4);"></div>
+              <span style="font-size:0.7rem;color:var(--text-light);">Mai'26</span>
+              <span style="font-size:0.8rem;font-weight:700;color:var(--green-deep);">74 📌</span>
+            </div>
+          </div>
+          <div style="text-align:center; margin-top:12px; font-size:0.82rem; color:var(--text-light);">
+            📈 +22 pontos em 6 meses — Crescimento consistente
+          </div>
+        </div>
+        <div class="dash-grid-2">
+          <div class="card-section">
+            <h4><i class="fa-solid fa-leaf"></i> Detalhamento Ambiental (82%)</h4>
+            <div style="display:grid; gap:12px; font-size:0.88rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:var(--gray-100); border-radius:8px;">
+                <span>⚡ Eficiência Energética</span> <strong style="color:var(--success);">92%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:var(--gray-100); border-radius:8px;">
+                <span>💧 Gestão da Água</span> <strong style="color:var(--success);">88%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:var(--gray-100); border-radius:8px;">
+                <span>🗂️ Gestão de Resíduos</span> <strong style="color:var(--green-med);">78%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:var(--gray-100); border-radius:8px;">
+                <span>🌍 Emissões de CO₂</span> <strong style="color:var(--warning);">65%</strong>
+              </div>
+            </div>
+          </div>
+          <div class="card-section">
+            <h4><i class="fa-solid fa-scale-balanced"></i> Ações de Alta Prioridade</h4>
+            <div style="display:grid; gap:10px;">
+              <div style="padding:12px; background:rgba(192,57,43,0.05); border:1px solid rgba(192,57,43,0.15); border-radius:var(--radius-sm); border-left:3px solid var(--danger);">
+                <div style="font-size:0.85rem; font-weight:600; color:var(--danger);">🚨 Crítico — Governança</div>
+                <div style="font-size:0.8rem; color:var(--text-light); margin-top:2px;">Código de Ética não publicado — impede PIN Gold</div>
+              </div>
+              <div style="padding:12px; background:rgba(230,126,34,0.05); border:1px solid rgba(230,126,34,0.15); border-radius:var(--radius-sm); border-left:3px solid var(--warning);">
+                <div style="font-size:0.85rem; font-weight:600; color:var(--warning);">⚠️ Prioritário — Ambiental</div>
+                <div style="font-size:0.8rem; color:var(--text-light); margin-top:2px;">Inventário CO₂ (Scope 3) incompleto</div>
+              </div>
+              <div style="padding:12px; background:rgba(39,174,96,0.05); border:1px solid rgba(39,174,96,0.15); border-radius:var(--radius-sm); border-left:3px solid var(--success);">
+                <div style="font-size:0.85rem; font-weight:600; color:var(--success);">✅ Concluído — Social</div>
+                <div style="font-size:0.8rem; color:var(--text-light); margin-top:2px;">Política de acessibilidade PcD implementada</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TRILHA SECTION ===== -->
+      <div class="dash-section" id="sec-trilha">
+        <h3 style="margin-bottom:24px;">📚 Trilha de Capacitação ESG</h3>
+        <div class="card-section">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+            <div>
+              <h4 style="margin-bottom:4px;"><i class="fa-solid fa-route"></i> Progresso Geral: 67%</h4>
+              <p style="font-size:0.85rem;">4 de 6 módulos concluídos • Estimativa de conclusão: Junho 2026</p>
+            </div>
+            <a href="trilha.html" class="btn btn-primary"><i class="fa-solid fa-play"></i> Continuar Trilha</a>
+          </div>
+          <div style="background:var(--gray-100); border-radius:var(--radius-full); height:12px; margin-bottom:32px; overflow:hidden;">
+            <div style="width:67%; height:100%; background:linear-gradient(90deg,var(--green-deep),var(--gold)); border-radius:var(--radius-full);"></div>
+          </div>
+          <div style="display:grid; gap:16px;">
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:rgba(39,174,96,0.05); border:1px solid rgba(39,174,96,0.2); border-radius:var(--radius-md);">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0;">✓</div>
+              <div style="flex:1;"><strong>Módulo 1 — Fundamentos ESG na Hotelaria</strong><p style="font-size:0.82rem;margin-top:2px;">Concluído em 12/Abr/2026 • Certificado emitido</p></div>
+              <span style="font-size:0.8rem;background:rgba(39,174,96,0.1);color:var(--success);padding:4px 12px;border-radius:var(--radius-full);font-weight:600;">Concluído</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:rgba(39,174,96,0.05); border:1px solid rgba(39,174,96,0.2); border-radius:var(--radius-md);">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0;">✓</div>
+              <div style="flex:1;"><strong>Módulo 2 — Diagnóstico Ambiental</strong><p style="font-size:0.82rem;margin-top:2px;">Concluído em 22/Abr/2026 • Certificado emitido</p></div>
+              <span style="font-size:0.8rem;background:rgba(39,174,96,0.1);color:var(--success);padding:4px 12px;border-radius:var(--radius-full);font-weight:600;">Concluído</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:rgba(39,174,96,0.05); border:1px solid rgba(39,174,96,0.2); border-radius:var(--radius-md);">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0;">✓</div>
+              <div style="flex:1;"><strong>Módulo 3 — Práticas Sociais</strong><p style="font-size:0.82rem;margin-top:2px;">Concluído em 02/Mai/2026 • Certificado emitido</p></div>
+              <span style="font-size:0.8rem;background:rgba(39,174,96,0.1);color:var(--success);padding:4px 12px;border-radius:var(--radius-full);font-weight:600;">Concluído</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:rgba(39,174,96,0.05); border:1px solid rgba(39,174,96,0.2); border-radius:var(--radius-md);">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--success);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0;">✓</div>
+              <div style="flex:1;"><strong>Módulo 4 — Governança Corporativa</strong><p style="font-size:0.82rem;margin-top:2px;">Concluído em 08/Mai/2026 • Certificado emitido</p></div>
+              <span style="font-size:0.8rem;background:rgba(39,174,96,0.1);color:var(--success);padding:4px 12px;border-radius:var(--radius-full);font-weight:600;">Concluído</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:rgba(212,160,23,0.06); border:2px solid rgba(212,160,23,0.3); border-radius:var(--radius-md);">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--gold);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem;flex-shrink:0;">5</div>
+              <div style="flex:1;"><strong>Módulo 5 — Processo de Certificação PIN</strong><p style="font-size:0.82rem;margin-top:2px;">35% completo • 3 aulas restantes • Prazo: 15/Jun/2026</p></div>
+              <a href="trilha.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Continuar</a>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; padding:20px; background:var(--gray-100); border:1px solid var(--gray-200); border-radius:var(--radius-md); opacity:0.6;">
+              <div style="width:48px;height:48px;border-radius:var(--radius-sm);background:var(--gray-300);display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem;flex-shrink:0;">🔒</div>
+              <div style="flex:1;"><strong style="color:var(--text-light);">Módulo 6 — Expansão e Crédito ESG</strong><p style="font-size:0.82rem;margin-top:2px;color:var(--text-light);">Desbloqueado após conclusão do Módulo 5</p></div>
+              <span style="font-size:0.8rem;color:var(--text-light);">Bloqueado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DOCUMENTOS ===== -->
+      <div class="dash-section" id="sec-documentos">
+        <h3 style="margin-bottom:24px;">📁 Documentos e Certificados</h3>
+        <div class="card-section">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+            <h4 style="margin-bottom:0;"><i class="fa-solid fa-folder-open"></i> Biblioteca de Documentos</h4>
+            <button class="btn btn-primary btn-sm" onclick="showToast('Upload iniciado...', 'fa-upload')">
+              <i class="fa-solid fa-upload"></i> Enviar Documento
+            </button>
+          </div>
+          <div class="docs-grid">
+            <div class="doc-card">
+              <div class="doc-icon">📋</div>
+              <div class="doc-name">Política Ambiental</div>
+              <div class="doc-size">245 KB • PDF</div>
+              <div class="doc-status aprovado">Aprovado</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📊</div>
+              <div class="doc-name">Inventário CO₂ 2025</div>
+              <div class="doc-size">1.2 MB • XLSX</div>
+              <div class="doc-status aprovado">Aprovado</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">🎓</div>
+              <div class="doc-name">Certificado Módulo 1</div>
+              <div class="doc-size">180 KB • PDF</div>
+              <div class="doc-status aprovado">Emitido</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">🎓</div>
+              <div class="doc-name">Certificado Módulo 2</div>
+              <div class="doc-size">180 KB • PDF</div>
+              <div class="doc-status aprovado">Emitido</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📝</div>
+              <div class="doc-name">Política de Diversidade</div>
+              <div class="doc-size">320 KB • PDF</div>
+              <div class="doc-status aprovado">Aprovado</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">⚖️</div>
+              <div class="doc-name">Código de Ética</div>
+              <div class="doc-size">—</div>
+              <div class="doc-status pendente">Pendente</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">🔒</div>
+              <div class="doc-name">Política LGPD</div>
+              <div class="doc-size">410 KB • PDF</div>
+              <div class="doc-status aprovado">Aprovado</div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📄</div>
+              <div class="doc-name">Relatório ESG 2025</div>
+              <div class="doc-size">3.8 MB • PDF</div>
+              <div class="doc-status pendente">Em revisão</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CRÉDITO ===== -->
+      <div class="dash-section" id="sec-credito">
+        <h3 style="margin-bottom:24px;">💳 Crédito ESG Disponível</h3>
+        <div style="display:grid; gap:20px;">
+          <div style="background:linear-gradient(135deg,var(--green-deep),var(--navy)); border-radius:var(--radius-lg); padding:36px; color:white;">
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:24px;">
+              <div>
+                <h3 style="color:var(--gold); margin-bottom:8px;">📌 Seu PIN Score: 74 (Gold)</h3>
+                <p style="color:rgba(255,255,255,0.7);">Com base no seu score atual, você está qualificado para as seguintes linhas:</p>
+              </div>
+              <a href="trilha.html" class="btn btn-primary">Elevar Score para Platinum</a>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;">
+              <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius-md); padding:20px; border:1px solid rgba(255,255,255,0.12);">
+                <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">BNDES Turismo ESG</div>
+                <div style="font-size:1.8rem; font-weight:700; color:var(--gold); font-family:var(--font-heading);">R$5M</div>
+                <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:4px;">Taxa: SELIC + 2,3% a.a.</div>
+                <div style="margin-top:12px; font-size:0.75rem; color:rgba(255,255,255,0.4);">✅ Você se qualifica</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius-md); padding:20px; border:1px solid rgba(255,255,255,0.12);">
+                <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Caixa Verde Turismo</div>
+                <div style="font-size:1.8rem; font-weight:700; color:var(--gold); font-family:var(--font-heading);">R$2.5M</div>
+                <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:4px;">Taxa: TR + 5,0% a.a.</div>
+                <div style="margin-top:12px; font-size:0.75rem; color:rgba(255,255,255,0.4);">✅ Você se qualifica</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius-md); padding:20px; border:1px solid rgba(255,255,255,0.12);">
+                <div style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Fundo ESG Turismo BR</div>
+                <div style="font-size:1.8rem; font-weight:700; color:rgba(255,255,255,0.3); font-family:var(--font-heading);">R$10M</div>
+                <div style="font-size:0.82rem; color:rgba(255,255,255,0.4); margin-top:4px;">Equity — PIN Platinum</div>
+                <div style="margin-top:12px; font-size:0.75rem; color:var(--gold);">🎯 Score 91+ necessário</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-section">
+            <h4><i class="fa-solid fa-handshake"></i> Parceiros Financeiros da Rede PIN</h4>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;">
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">🏦 BNDES</div>
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">🏦 Caixa Econômica</div>
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">🏦 Banco do Brasil</div>
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">💼 Votorantim ESG</div>
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">📈 BTG Pactual</div>
+              <div style="padding:16px; background:var(--gray-100); border-radius:var(--radius-sm); text-align:center; font-weight:600; font-size:0.85rem; color:var(--text-mid);">💰 Itaú BBA ESG</div>
+            </div>
+            <div style="margin-top:24px; text-align:center;">
+              <button class="btn btn-primary" onclick="showToast('Conectando com gerente ESG...', 'fa-phone')">
+                <i class="fa-solid fa-phone"></i> Falar com Gerente ESG
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAREFAS SECTION ===== -->
+      <div class="dash-section" id="sec-tarefas">
+        <h3 style="margin-bottom:24px;">✅ Gestão de Tarefas ESG</h3>
+        <div class="tasks-card">
+          <h4><i class="fa-solid fa-list-check" style="color:var(--green-med);"></i> Todas as Tarefas — Maio/Junho 2026</h4>
+          <div>
+            <div class="task-item done">
+              <div class="task-check"><i class="fa-solid fa-check"></i></div>
+              <div class="task-text"><h6>Instalar painéis solares — ala norte (40 UHs)</h6><p>Concluído: 200 kWp instalados, redução de 45% na conta de energia</p></div>
+              <div class="task-priority baixa">Feito</div>
+            </div>
+            <div class="task-item done">
+              <div class="task-check"><i class="fa-solid fa-check"></i></div>
+              <div class="task-text"><h6>Implementar programa de compostagem no restaurante</h6><p>3 toneladas de resíduo orgânico redirecionadas/mês</p></div>
+              <div class="task-priority baixa">Feito</div>
+            </div>
+            <div class="task-item done">
+              <div class="task-check"><i class="fa-solid fa-check"></i></div>
+              <div class="task-text"><h6>Treinamento de diversidade para liderança (20 gestores)</h6><p>Concluído em 05/Mai — 100% de participação</p></div>
+              <div class="task-priority baixa">Feito</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Publicar Código de Ética no site e intranet</h6><p>Pendente: aprovação jurídica — prazo: 20/Mai/2026</p></div>
+              <div class="task-priority alta">Alta</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Completar Inventário de GHG — Scope 3 (supply chain)</h6><p>Coletar dados de 15 fornecedores principais</p></div>
+              <div class="task-priority alta">Alta</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Implementar sistema de reúso de água cinza</h6><p>Orçamento aprovado: R$ 45.000 — aguardando licença</p></div>
+              <div class="task-priority media">Média</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Treinamento LGPD — equipe de recepção e TI</h6><p>Agendar com DPO — módulo disponível na trilha</p></div>
+              <div class="task-priority media">Média</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Publicar relatório ESG 2025 no site corporativo</h6><p>Draft finalizado — aguardando aprovação da diretoria</p></div>
+              <div class="task-priority media">Média</div>
+            </div>
+            <div class="task-item">
+              <div class="task-check"></div>
+              <div class="task-text"><h6>Instalar carregadores para veículos elétricos (4 pontos)</h6><p>Negociando com fornecedor — orçamento em apreciação</p></div>
+              <div class="task-priority baixa">Baixa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== RELATÓRIO ===== -->
+      <div class="dash-section" id="sec-relatorio">
+        <h3 style="margin-bottom:24px;">📊 Relatório ESG</h3>
+        <div class="card-section" style="text-align:center; padding:60px;">
+          <div style="font-size:4rem; margin-bottom:20px;">📄</div>
+          <h3 style="margin-bottom:12px;">Relatório ESG 2025 — Hotel Grand Balmoral</h3>
+          <p style="max-width:500px; margin:0 auto 32px;">Seu relatório ESG no padrão GRI está sendo preparado com base nos dados inseridos na plataforma. Estimativa de conclusão: 25/Mai/2026.</p>
+          <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="showToast('Gerando preview do relatório...', 'fa-eye')">
+              <i class="fa-solid fa-eye"></i> Visualizar Rascunho
+            </button>
+            <button class="btn btn-outline-green" onclick="showToast('Relatório enviado ao e-mail cadastrado!', 'fa-envelope')">
+              <i class="fa-solid fa-envelope"></i> Enviar por E-mail
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dashboard-content -->
+  </main>
+</div>
+
+<div class="toast" id="toastMsg"><i class="fa-solid fa-check-circle"></i></div>
+
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+// Animate module 5 bar
+setTimeout(() => {
+  const m5 = document.getElementById('progM5');
+  if (m5) m5.style.width = '35%';
+}, 800);
+</script>
+</body>
+</html>
+

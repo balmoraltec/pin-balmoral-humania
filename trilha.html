@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trilha ESG Balmoral — Capacitação ESG para Hotelaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .trilha-overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; margin-bottom: 64px; }
+    .overview-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+    .overview-card .ov-icon { font-size: 2rem; margin-bottom: 12px; }
+    .overview-card .ov-num  { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--gold); }
+    .overview-card .ov-label { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 4px; }
+    .module-status { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; }
+    .module-status.disponivel { color: var(--green-med); }
+    .module-status.bloqueado  { color: var(--gray-500); }
+    .module-status.concluido  { color: var(--gold); }
+    .faq-item { border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 12px; }
+    .faq-q { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-dark); transition: background 0.3s; }
+    .faq-q:hover { background: var(--gray-100); }
+    .faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+    .faq-a.open { max-height: 300px; padding: 0 24px 20px; }
+    .faq-a p { font-size: 0.92rem; }
+    .instructor-card { background: var(--white); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); display: flex; gap: 24px; align-items: flex-start; }
+    .instructor-avatar { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+    .instructor-name { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .instructor-role { font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+    .instructor-bio  { font-size: 0.88rem; color: var(--text-light); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">📌</div>
+        <div class="logo-text">
+          <span class="logo-main">PIN Balmoral</span>
+          <span class="logo-sub">ESG Hotelaria</span>
+        </div>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="index.html#problema">O Problema</a></li>
+        <li><a href="index.html#solucao">Solução</a></li>
+        <li><a href="index.html#pilares">Pilares ESG</a></li>
+        <li><a href="trilha.html" style="color:var(--gold);">Trilha ESG</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="diagnostico.html" class="btn btn-outline btn-sm">Diagnóstico Grátis</a>
+        <a href="diagnostico.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-medal"></i> Quero meu PIN ESG</a>
+      </div>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="page-hero-content">
+      <span class="badge badge-gold" style="margin-bottom:20px; display:inline-flex;"><i class="fa-solid fa-route"></i> Trilha de Capacitação</span>
+      <h1>Trilha de Aprendizagem<br><span style="background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ESG Balmoral</span></h1>
+      <p>6 módulos progressivos que levam seu hotel do diagnóstico inicial à certificação PIN completa. Conteúdo desenvolvido por especialistas em hotelaria sustentável.</p>
+
+      <div style="max-width:440px; margin:0 auto 32px;">
+        <div class="trilha-progress-bar">
+          <div class="trilha-progress-fill" id="trilhaProgressFill" style="width:0%;"></div>
+        </div>
+        <div class="trilha-progress-text" id="trilhaProgressText">Inicie sua jornada e acompanhe seu progresso</div>
+      </div>
+
+      <a href="diagnostico.html" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-play"></i> Iniciar Trilha ESG
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW STATS -->
+<section style="background:var(--green-deep); padding:48px 0;">
+  <div class="container">
+    <div class="trilha-overview-grid">
+      <div class="overview-card animate-on-scroll">
+        <div class="ov-icon">📚</div>
+        <div class="ov-num">6</div>
+        <div class="ov-label">Módulos Completos</div>
+      </div>
+      <div class="overview-card animate-on-scroll delay-1">
+        <div class="ov-icon">⏱️</div>
+        <div class="ov-num">31h</div>
+        <div class="ov-label">Total de Conteúdo</div>
+      </div>
+      <div class="overview-card animate-on-scroll delay-2">
+        <div class="ov-icon">🎓</div>
+        <div class="ov-num">7</div>
+        <div class="ov-label">Certificados Emitidos</div>
+      </div>
+      <div class="overview-card animate-on-scroll delay-3">
+        <div class="ov-icon">🏨</div>
+        <div class="ov-num">847</div>
+        <div class="ov-label">Hotéis Formados</div>
+      </div>
+      <div class="overview-card animate-on-scroll delay-4">
+        <div class="ov-icon">⭐</div>
+        <div class="ov-num">4.9</div>
+        <div class="ov-label">Avaliação dos Alunos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES FULL -->
+<section style="background:var(--off-white); padding:80px 0;" id="modulos">
+  <div class="container">
+    <div style="text-align:center; max-width:700px; margin:0 auto 60px;" class="animate-on-scroll">
+      <span class="section-label">Os Módulos</span>
+      <h2>Percurso Completo de <span class="text-gold">Transformação ESG</span></h2>
+      <p>Cada módulo é uma etapa prática e progressiva. Clique em cada um para ver o conteúdo detalhado.</p>
+    </div>
+
+    <div class="trilha-modules-full">
+      <!-- Módulo 1 -->
+      <div class="trilha-module-full animate-on-scroll delay-1">
+        <div class="module-header" onclick="toggleModule(this)">
+          <div class="module-number-badge">1</div>
+          <div class="module-header-text">
+            <h3>🌱 Fundamentos do ESG na Hotelaria</h3>
+            <p>O que é ESG, por que é urgente e como impacta seu negócio hoteleiro</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status disponivel"><i class="fa-solid fa-circle-check"></i> Disponível</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 4h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">Neste módulo introdutório, você compreenderá a fundo o movimento ESG: sua origem, sua aceleração em 2026, e por que a hotelaria é um dos setores com maior urgência e maior oportunidade neste cenário.</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> O que é ESG e por que 2026 é o ponto de inflexão</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Impacto do ESG no crédito e financiamento hoteleiro</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Frameworks globais: GRI, SASB, TCFD, ODS</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Cases de hotéis que transformaram ESG em vantagem</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Mapeamento de stakeholders: bancos, OTAs e hóspedes</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Regulação ESG no Brasil — CVM e Banco Central</div>
+          </div>
+          <div class="module-cert-badge">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Certificado de Conclusão: "Fundamentos ESG para Hotelaria" — emitido pela PIN Balmoral</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 2 -->
+      <div class="trilha-module-full animate-on-scroll delay-2">
+        <div class="module-header" onclick="toggleModule(this)">
+          <div class="module-number-badge" style="background:linear-gradient(135deg,#1B4332,#2D6A4F);">2</div>
+          <div class="module-header-text">
+            <h3>🌊 Diagnóstico Ambiental do Hotel</h3>
+            <p>Mapeamento completo do impacto ambiental: energia, água, resíduos e carbono</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status disponivel"><i class="fa-solid fa-circle-check"></i> Disponível</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 6h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">O pilar Ambiental é o mais tangível e mensurável do ESG. Este módulo entrega ferramentas práticas para seu hotel inventariar seus impactos ambientais, definir metas e começar a redução com retorno financeiro imediato.</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Inventário de emissões GHG (Scope 1, 2 e 3)</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Auditoria energética prática para hotéis</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Gestão inteligente da água e tratamento</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Plano de gestão de resíduos e compostagem</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Energia solar e fontes renováveis — ROI hoteleiro</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Compras sustentáveis e cadeia de fornecimento verde</div>
+          </div>
+          <div style="margin-top:16px; padding:16px; background:var(--gray-100); border-radius:var(--radius-sm);">
+            <strong style="font-size:0.88rem; color:var(--text-dark);">📎 Materiais Incluídos:</strong>
+            <p style="font-size:0.85rem; margin-top:4px;">Planilha de Inventário de CO₂ • Template de Auditoria Energética • Calculadora de Consumo de Água por UH • Guia de Fornecedores Sustentáveis</p>
+          </div>
+          <div class="module-cert-badge">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Certificado: "Gestão Ambiental em Hotelaria" — válido para laudos financeiros ESG</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 3 -->
+      <div class="trilha-module-full animate-on-scroll delay-3">
+        <div class="module-header" onclick="toggleModule(this)">
+          <div class="module-number-badge" style="background:linear-gradient(135deg,#1A3A5C,#2980B9);">3</div>
+          <div class="module-header-text">
+            <h3>🤝 Práticas Sociais e Gestão de Pessoas</h3>
+            <p>Diversidade, direitos trabalhistas, comunidade e turismo inclusivo</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status disponivel"><i class="fa-solid fa-circle-check"></i> Disponível</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 5h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">O pilar Social envolve todos os que trabalham com e para o seu hotel. Implante políticas que protegem colaboradores, valorizam a comunidade local e constroem uma reputação interna e externa de respeito.</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Política de diversidade, equidade e inclusão (DEI)</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Programa de saúde e segurança ocupacional</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Combate ao trabalho análogo ao escravo na cadeia</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Turismo acessível e inclusivo (PcD)</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Engajamento com comunidades locais e artesãos</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Indicadores sociais para relatórios ESG (GRI 400)</div>
+          </div>
+          <div class="module-cert-badge">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Certificado: "Gestão Social e Responsabilidade em Hotelaria"</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 4 -->
+      <div class="trilha-module-full animate-on-scroll delay-4">
+        <div class="module-header" onclick="toggleModule(this)">
+          <div class="module-number-badge" style="background:linear-gradient(135deg,#4A2C0A,#8B4513);">4</div>
+          <div class="module-header-text">
+            <h3>⚖️ Governança Corporativa Hoteleira</h3>
+            <p>Compliance, ética, LGPD, relatórios GRI e estrutura de governança</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status disponivel"><i class="fa-solid fa-circle-check"></i> Disponível</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 7h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">Governança é o pilar mais valorizado por bancos e investidores. Estruture seu hotel com controles internos sólidos, relatórios transparentes e conformidade regulatória que aumentam substancialmente seu score de crédito.</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Estrutura de governança para hotéis (Conselho, Comitês)</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Código de Ética e Canal de Denúncias</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Conformidade LGPD para dados de hóspedes</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Relatório ESG no padrão GRI (Core e Comprehensive)</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> TCFD: gestão de riscos climáticos no balanço</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Preparação para auditoria independente ESG</div>
+          </div>
+          <div class="module-cert-badge">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Certificado: "Governança ESG em Hotelaria" — aceito por auditores Big Four</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 5 -->
+      <div class="trilha-module-full animate-on-scroll delay-5">
+        <div class="module-header" onclick="toggleModule(this)">
+          <div class="module-number-badge" style="background:linear-gradient(135deg,var(--gold),#B8860B);">5</div>
+          <div class="module-header-text">
+            <h3>📌 Processo de Certificação PIN Balmoral</h3>
+            <p>Pré-avaliação, auditoria, visita técnica e emissão do certificado oficia</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status disponivel"><i class="fa-solid fa-circle-check"></i> Disponível</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 4h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">Agora que você implementou as práticas, é hora de formalizar. Entenda cada etapa do processo de certificação PIN, o que os auditores avaliam e como maximizar seu nível (Bronze → Platinum).</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Critérios de pontuação por pilar e nível de PIN</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Documentação necessária para auditoria</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Simulado de auditoria — checklist completo</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Visita técnica: o que esperar e como se preparar</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Manutenção do PIN — ciclo anual de renovação</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Como usar o PIN nas estratégias comerciais do hotel</div>
+          </div>
+          <div class="module-cert-badge">
+            <i class="fa-solid fa-medal" style="color:var(--gold);"></i>
+            <span style="color:var(--gold);">Ao concluir este módulo, você estará pronto para a auditoria oficial de certificação PIN!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 6 -->
+      <div class="trilha-module-full animate-on-scroll delay-6" style="border-color:var(--gold);">
+        <div class="module-header" onclick="toggleModule(this)" style="background:linear-gradient(135deg,rgba(212,160,23,0.04),rgba(27,67,50,0.04));">
+          <div class="module-number-badge" style="background:linear-gradient(135deg,var(--green-deep),var(--gold));">6</div>
+          <div class="module-header-text">
+            <h3>🚀 Expansão, Impacto e Crédito ESG</h3>
+            <p>Conecte o PIN ao crédito, aos investidores e à reputação no mercado</p>
+          </div>
+          <div class="module-header-meta">
+            <span class="module-status concluido"><i class="fa-solid fa-trophy"></i> Módulo Final</span>
+            <span class="module-tag"><i class="fa-solid fa-clock"></i> 5h</span>
+            <button class="module-expand-btn"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+        <div class="module-body">
+          <p style="margin-bottom:20px; color:var(--text-mid);">Você certificou seu hotel — agora é hora de extrair máximo valor disso. Aprenda a apresentar seu PIN para bancos, negociar melhores taxas, atrair investidores ESG e comunicar sua certificação para hóspedes e parceiros comerciais.</p>
+          <div class="module-topics">
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Pitch ESG para bancos e linhas de crédito verde</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Acesso ao BNDES Turismo ESG e Caixa Verde</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Comunicação do PIN em OTAs e GDS</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Marketing ESG — como atrair o hóspede consciente</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Roadshow ESG — captação de investidores para hotéis</div>
+            <div class="topic-item"><i class="fa-solid fa-check"></i> Evolução contínua: do Bronze ao Platinum em 24 meses</div>
+          </div>
+          <div class="module-cert-badge" style="background:rgba(212,160,23,0.08); border-color:rgba(212,160,23,0.3);">
+            <i class="fa-solid fa-trophy" style="color:var(--gold);font-size:1.5rem;"></i>
+            <div>
+              <div style="font-size:0.88rem; font-weight:700; color:var(--text-dark);">🎓 Certificado PIN Balmoral ESG — Trilha Completa</div>
+              <div style="font-size:0.8rem; color:var(--text-light); margin-top:2px;">Reconhecido por ABIH Nacional, parceiros financeiros e plataformas OTA internacionais</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUTORES -->
+<section style="background:var(--white); padding:80px 0;">
+  <div class="container">
+    <div style="text-align:center; max-width:600px; margin:0 auto 48px;" class="animate-on-scroll">
+      <span class="section-label">Quem Ensina</span>
+      <h2>Especialistas em <span class="text-gold">ESG e Hotelaria</span></h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:24px;">
+      <div class="instructor-card animate-on-scroll delay-1">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,var(--green-deep),var(--green-med));">👨‍🏫</div>
+        <div>
+          <div class="instructor-name">Dr. Marcos Andrade</div>
+          <div class="instructor-role">Especialista ESG & Sustentabilidade Corporativa</div>
+          <div class="instructor-bio">Doutor em Gestão Ambiental pela USP, 15 anos em consultoria ESG para o setor de turismo e hotelaria. Ex-consultor GRI e membro do Comitê de Sustentabilidade da ABIH Nacional.</div>
+        </div>
+      </div>
+      <div class="instructor-card animate-on-scroll delay-2">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,#1A3A5C,#2980B9);">👩‍💼</div>
+        <div>
+          <div class="instructor-name">Dra. Fernanda Castro</div>
+          <div class="instructor-role">Governança Corporativa & Finanças Sustentáveis</div>
+          <div class="instructor-bio">Economista e especialista em finanças sustentáveis. 12 anos em estruturação de operações de crédito ESG em bancos de desenvolvimento. Professora convidada da FGV.</div>
+        </div>
+      </div>
+      <div class="instructor-card animate-on-scroll delay-3">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,#4A2C0A,#8B4513);">👨‍⚖️</div>
+        <div>
+          <div class="instructor-name">Ricardo Nogueira, LL.M.</div>
+          <div class="instructor-role">Compliance, LGPD & Regulação ESG</div>
+          <div class="instructor-bio">Advogado especializado em compliance corporativo e regulação ambiental. LL.M. em Direito Ambiental Internacional. Assessora hotéis de luxo em conformidade com normas ESG globais.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--off-white); padding:80px 0;">
+  <div class="container">
+    <div style="text-align:center; max-width:600px; margin:0 auto 48px;" class="animate-on-scroll">
+      <span class="section-label">Dúvidas</span>
+      <h2>Perguntas <span class="text-gold">Frequentes</span></h2>
+    </div>
+    <div style="max-width:800px; margin:0 auto;" class="animate-on-scroll">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Preciso fazer todos os módulos em ordem? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p>Sim. A trilha foi desenvolvida de forma progressiva — cada módulo constrói sobre o anterior. Você pode pausar e retomar quando quiser, mas a ordem é essencial para o aproveitamento máximo e para a certificação final.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Qual é o prazo para concluir a trilha? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p>Você tem todo o tempo que precisar — a trilha não expira. Hotéis com equipes dedicadas costumam concluir em 30 a 60 dias. Para pousadas e hotéis menores, 90 dias é a média. Recomendamos de 4 a 6 horas por semana.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Os certificados são reconhecidos pelos bancos? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p>Sim. Os certificados PIN Balmoral ESG são reconhecidos pelo BNDES, Caixa Econômica Federal, Banco do Brasil e principais bancos privados como parte da documentação para análise de crédito em linhas ESG. Também são aceitos por OTAs como Booking.com e Expedia para o programa Green Stay.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Minha equipe toda pode participar ou é apenas para o gestor? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p>Cada licença permite até 5 usuários por hotel (plano padrão). Planos corporativos para redes com múltiplas unidades incluem acessos ilimitados. Recomendamos que pelo menos o gestor geral, o chefe de governança e o responsável de manutenção participem dos módulos relevantes.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Qual é o investimento para participar da trilha? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-a">
+          <p>O diagnóstico inicial é 100% gratuito. A trilha completa com certificados custa a partir de R$ 497/mês para hotéis pequenos. Planos para médios e grandes hotéis são personalizados conforme número de UHs e unidades. Entre em contato para uma proposta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA TRILHA -->
+<section class="cta-section section-padding">
+  <div class="container" style="position:relative; z-index:1;">
+    <h2 style="color:var(--white); margin-bottom:20px;" class="animate-on-scroll">Comece Sua Jornada ESG <span style="background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Ainda Hoje</span></h2>
+    <p style="color:rgba(255,255,255,0.7); max-width:580px; margin:0 auto 36px;" class="animate-on-scroll">Faça seu diagnóstico gratuito, veja seu score ESG atual e inicie a trilha que vai transformar seu hotel em um ativo sustentável, financiável e competitivo.</p>
+    <div class="cta-actions animate-on-scroll">
+      <a href="diagnostico.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-play"></i> Iniciar Agora — Grátis</a>
+      <a href="index.html" class="btn btn-outline btn-lg"><i class="fa-solid fa-arrow-left"></i> Voltar à Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (compact) -->
+<footer style="background:var(--navy); padding:32px 0;">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div class="navbar-logo">
+        <div class="logo-icon">📌</div>
+        <div class="logo-text">
+          <span class="logo-main">PIN Balmoral</span>
+          <span class="logo-sub">ESG Hotelaria</span>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.35); font-size:0.82rem;">© 2026 PIN Balmoral ESG. Todos os direitos reservados.</p>
+      <div style="display:flex; gap:16px;">
+        <a href="index.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Home</a>
+        <a href="diagnostico.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Diagnóstico</a>
+        <a href="dashboard.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toastMsg"><i class="fa-solid fa-check-circle"></i> Mensagem aqui</div>
+
+<script src="js/main.js"></script>
+<script>
+function toggleModule(header) {
+  const body = header.nextElementSibling;
+  const btn  = header.querySelector('.module-expand-btn i');
+  const isOpen = body.classList.toggle('open');
+  if (btn) btn.className = isOpen ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
+}
+
+function toggleFaq(q) {
+  const a = q.nextElementSibling;
+  const icon = q.querySelector('i');
+  const isOpen = a.classList.toggle('open');
+  if (icon) icon.className = isOpen ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
+}
+
+// Animate progress bar
+setTimeout(() => {
+  const fill = document.getElementById('trilhaProgressFill');
+  const text = document.getElementById('trilhaProgressText');
+  if (fill) fill.style.width = '17%';
+  if (text) text.textContent = 'Módulo 1 de 6 em andamento — 17% completo';
+}, 800);
+
+// Expand first module on load
+document.addEventListener('DOMContentLoaded', () => {
+  const firstModule = document.querySelector('.module-header');
+  if (firstModule) setTimeout(() => toggleModule(firstModule), 600);
+});
+</script>
+</body>
+</html>
+
