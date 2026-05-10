@@ -254,8 +254,8 @@ p  { font-size: 1rem; color: var(--text-light); line-height: 1.75; }
 }
 
 .logo-icon {
-  width: 72px !important;
-  height: 72px !important;
+  width: 100px !important;
+  height: 100px !important;
   background: transparent !important;
   border-radius: 0 !important;
   display: flex;
@@ -268,8 +268,8 @@ p  { font-size: 1rem; color: var(--text-light); line-height: 1.75; }
 }
 
 .logo-icon img {
-  width: 72px !important;
-  height: 72px !important;
+  width: 100px !important;
+  height: 100px !important;
   object-fit: contain !important;
   display: block !important;
   filter: drop-shadow(0 2px 8px rgba(212,160,23,0.5));
