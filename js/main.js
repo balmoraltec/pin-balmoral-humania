@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---- Urgency Bar + Navbar Offset ---- */
+  const urgencyBar = document.getElementById('urgencyBar');
+  const urgencyClose = document.getElementById('urgencyClose');
+
+  function adjustNavbarTop() {
+    if (!navbar) return;
+    const barHeight = (urgencyBar && urgencyBar.offsetParent !== null) ? urgencyBar.offsetHeight : 0;
+    navbar.style.top = barHeight + 'px';
+  }
+
+  adjustNavbarTop();
+  window.addEventListener('resize', adjustNavbarTop);
+
+  if (urgencyClose) {
+    urgencyClose.addEventListener('click', () => {
+      if (urgencyBar) {
+        urgencyBar.style.display = 'none';
+        adjustNavbarTop();
+      }
+    });
+  }
+
   /* ---- Mobile Menu ---- */
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
@@ -150,13 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---- Urgency bar close ---- */
-  const urgencyClose = document.getElementById('urgencyClose');
-  if (urgencyClose) {
-    urgencyClose.addEventListener('click', () => {
-      document.getElementById('urgencyBar').style.display = 'none';
-    });
-  }
 
   /* ---- Animate progress bars on scroll ---- */
   const progressBars = document.querySelectorAll('[data-width]');
