@@ -35,17 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---- Mobile Menu ---- */
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('navLinks');
+  const hamburger = document.getElementById("hamburger");
+  const navLinks  = document.getElementById("navLinks");
+  function closeMobileMenu() { navLinks.classList.remove("open"); hamburger.classList.remove("open"); }
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open');
-    });
-    // Close on link click
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
+    hamburger.addEventListener("click", (e) => { e.stopPropagation(); navLinks.classList.toggle("open"); hamburger.classList.toggle("open"); });
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+    document.addEventListener("click", (e) => { if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) closeMobileMenu(); });
   }
 
   /* ---- Scroll Animation (Intersection Observer) ---- */
