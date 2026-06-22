@@ -16,6 +16,42 @@
     @keyframes shake {
       0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)}
     }
+    /* Botão de acesso administrativo */
+    .btn-admin-access {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(212,160,23,0.10);
+      border: 1px solid rgba(212,160,23,0.30);
+      color: var(--gold);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .btn-admin-access::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,160,23,0.15);
+      animation: adminPulse 2.5s ease infinite;
+    }
+    @keyframes adminPulse {
+      0%,100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.15); opacity: 0; }
+    }
+    .btn-admin-access:hover {
+      background: rgba(212,160,23,0.20);
+      border-color: rgba(212,160,23,0.60);
+      color: var(--gold-light);
+      transform: scale(1.08);
+      box-shadow: 0 0 12px rgba(212,160,23,0.30);
+    }
   </style>
 </head>
 <body>
@@ -55,6 +91,9 @@
         <a href="diagnostico.html" class="btn btn-outline btn-sm">Diagnóstico Grátis</a>
         <a href="diagnostico.html" class="btn btn-primary btn-sm">
           <i class="fa-solid fa-medal"></i> Quero meu PIN ESG
+        </a>
+        <a href="admin-login.html" class="btn-admin-access" title="Acesso Administrativo">
+          <i class="fa-solid fa-shield-halved"></i>
         </a>
       </div>
 

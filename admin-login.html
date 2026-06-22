@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acesso Administrativo — PIN Balmoral ESG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:  #0D2B1F;
+      --green-deep:  #1B4332;
+      --green-mid:   #2D6A4F;
+      --green-med:   #40916C;
+      --gold:        #D4A017;
+      --gold-light:  #F0C040;
+      --text-dark:   #1A2E22;
+      --text-light:  #5A7A68;
+      --gray-100:    #F1F5F2;
+      --gray-200:    #E2EAE5;
+      --danger:      #C0392B;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--green-dark);
+      overflow: hidden;
+    }
+
+    /* Background decorative elements */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .bg-orb-1 {
+      position: fixed;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212,160,23,0.12), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .bg-orb-2 {
+      position: fixed;
+      bottom: -150px;
+      left: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(64,145,108,0.15), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Main layout */
+    .login-wrapper {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* Card */
+    .login-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 24px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212,160,23,0.08);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .login-logo img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(212,160,23,0.4));
+    }
+
+    .login-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-logo-text .main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .login-logo-text .sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    /* Header text */
+    .login-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+    }
+
+    /* Admin badge */
+    .admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212,160,23,0.10);
+      border: 1px solid rgba(212,160,23,0.25);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .admin-badge i { font-size: 0.65rem; }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap i.input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.25);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      padding: 12px 14px 12px 40px;
+      font-size: 0.92rem;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.25s, background 0.25s;
+      outline: none;
+    }
+
+    .form-input::placeholder { color: rgba(255,255,255,0.22); }
+
+    .form-input:focus {
+      border-color: rgba(212,160,23,0.5);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .form-input.input-error {
+      border-color: rgba(192, 57, 43, 0.6);
+      background: rgba(192, 57, 43, 0.06);
+    }
+
+    /* Toggle password visibility */
+    .toggle-pass {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.25);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .toggle-pass:hover { color: rgba(255,255,255,0.6); }
+
+    /* Error message */
+    .error-msg {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(192,57,43,0.12);
+      border: 1px solid rgba(192,57,43,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      color: #e57373;
+    }
+
+    .error-msg.visible { display: flex; }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-med));
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(27,67,50,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-login:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(27,67,50,0.5);
+    }
+
+    .btn-login:active:not(:disabled) { transform: translateY(0); }
+
+    .btn-login:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Divider */
+    .login-divider {
+      text-align: center;
+      margin: 24px 0 0;
+    }
+
+    .login-divider a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.30);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .login-divider a:hover { color: rgba(255,255,255,0.55); }
+
+    /* Shake animation on error */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60%  { transform: translateX(-8px); }
+      40%,80%  { transform: translateX(8px); }
+    }
+
+    .shake { animation: shake 0.4s ease; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .login-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb-1"></div>
+  <div class="bg-orb-2"></div>
+
+  <div class="login-wrapper">
+    <div class="login-card" id="loginCard">
+
+      <div class="login-logo">
+        <img src="assets/logo-selo-verde-balmoralesg.png" alt="PIN Balmoral ESG" onerror="this.style.display='none'" />
+        <div class="login-logo-text">
+          <span class="main">PIN Balmoral</span>
+          <span class="sub">Business ESG</span>
+        </div>
+      </div>
+
+      <div class="admin-badge">
+        <i class="fa-solid fa-shield-halved"></i>
+        Acesso Administrativo
+      </div>
+
+      <h1 class="login-title">Painel de Controle</h1>
+      <p class="login-subtitle">Área restrita. Apenas administradores autorizados.</p>
+
+      <div class="error-msg" id="errorMsg">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="errorText">Credenciais inválidas. Tente novamente.</span>
+      </div>
+
+      <form id="loginForm" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="adminUser">Usuário</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input
+              type="text"
+              id="adminUser"
+              class="form-input"
+              placeholder="Usuário administrativo"
+              autocomplete="username"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="adminPass">Senha</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input
+              type="password"
+              id="adminPass"
+              class="form-input"
+              placeholder="••••••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" class="toggle-pass" id="togglePass" aria-label="Mostrar senha">
+              <i class="fa-solid fa-eye" id="togglePassIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="btnLogin">
+          <div class="spinner" id="loginSpinner"></div>
+          <i class="fa-solid fa-unlock-keyhole" id="loginIcon"></i>
+          <span id="loginBtnText">Acessar Dashboard</span>
+        </button>
+      </form>
+
+      <div class="login-divider">
+        <a href="index.html"><i class="fa-solid fa-arrow-left" style="font-size:0.75rem; margin-right:4px;"></i>Voltar ao site</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================
+       PIN BALMORAL — Admin Login Logic
+       Senha armazenada como SHA-256 (nunca em texto claro)
+       ===================================================== */
+
+    const ADMIN_USER = 'balmoralctocaio';
+    // SHA-256 de "Fos15871@$"
+    const ADMIN_PASS_HASH = '85f490eca37a54742f37bae1402ad860c75c8f16d26d1ba489d9e2d1df2d6ce1';
+
+    // Se já está autenticado, redireciona direto
+    if (sessionStorage.getItem('pinAdminAuth') === 'true') {
+      window.location.replace('dashboard.html');
+    }
+
+    /* --- Utilitário: SHA-256 via Web Crypto API --- */
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    /* --- Toggle de visibilidade da senha --- */
+    document.getElementById('togglePass').addEventListener('click', function () {
+      const passInput = document.getElementById('adminPass');
+      const icon = document.getElementById('togglePassIcon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+
+    /* --- Limpa erro ao digitar --- */
+    ['adminUser', 'adminPass'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        document.getElementById('errorMsg').classList.remove('visible');
+        document.getElementById(id).classList.remove('input-error');
+      });
+    });
+
+    /* --- Submit do formulário --- */
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const user = document.getElementById('adminUser').value.trim();
+      const pass = document.getElementById('adminPass').value;
+      const btn  = document.getElementById('btnLogin');
+      const spinner   = document.getElementById('loginSpinner');
+      const loginIcon = document.getElementById('loginIcon');
+      const btnText   = document.getElementById('loginBtnText');
+      const errorMsg  = document.getElementById('errorMsg');
+      const errorText = document.getElementById('errorText');
+      const card      = document.getElementById('loginCard');
+
+      // Estado: carregando
+      btn.disabled = true;
+      spinner.style.display = 'block';
+      loginIcon.style.display = 'none';
+      btnText.textContent = 'Verificando...';
+
+      try {
+        const passHash = await sha256(pass);
+        const isValid  = user === ADMIN_USER && passHash === ADMIN_PASS_HASH;
+
+        // Pequeno delay para evitar timing attacks
+        await new Promise(r => setTimeout(r, 400));
+
+        if (isValid) {
+          // Armazena token de sessão e redireciona
+          sessionStorage.setItem('pinAdminAuth', 'true');
+          sessionStorage.setItem('pinAdminUser', user);
+          btnText.textContent = 'Acesso liberado!';
+          loginIcon.style.display = 'inline';
+          loginIcon.className = 'fa-solid fa-check';
+          setTimeout(() => {
+            window.location.replace('dashboard.html');
+          }, 500);
+        } else {
+          // Erro: credenciais inválidas
+          errorText.textContent = 'Usuário ou senha incorretos.';
+          errorMsg.classList.add('visible');
+          document.getElementById('adminUser').classList.add('input-error');
+          document.getElementById('adminPass').classList.add('input-error');
+          document.getElementById('adminPass').value = '';
+
+          card.classList.add('shake');
+          card.addEventListener('animationend', () => card.classList.remove('shake'), { once: true });
+
+          // Reset botão
+          btn.disabled = false;
+          spinner.style.display = 'none';
+          loginIcon.style.display = 'inline';
+          loginIcon.className = 'fa-solid fa-unlock-keyhole';
+          btnText.textContent = 'Acessar Dashboard';
+        }
+      } catch {
+        // Fallback: browser sem suporte a Web Crypto
+        errorText.textContent = 'Erro interno. Use um navegador moderno.';
+        errorMsg.classList.add('visible');
+        btn.disabled = false;
+        spinner.style.display = 'none';
+        loginIcon.style.display = 'inline';
+        btnText.textContent = 'Acessar Dashboard';
+      }
+    });
+  </script>
+</body>
+</html>
