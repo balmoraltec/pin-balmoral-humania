@@ -55,9 +55,164 @@
       .sidebar.open { transform: translateX(0); }
       .dashboard-main { margin-left: 0; }
     }
+
+    /* =====================================================
+       PIN BALMORAL — Lock Overlay Styles
+       ===================================================== */
+
+    /* Efeito de desfoque nos dados reais do hotel */
+    .main-dashboard-content.locked-data {
+      filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Container de bloqueio em tela cheia */
+    .lock-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Card Central de Vendas */
+    .lock-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 2px solid #10b981;
+    }
+
+    .lock-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .lock-card h2 {
+      color: #0f172a;
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .lock-card p {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .benefit-box {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .benefit-box h4 {
+      margin: 0 0 8px 0;
+      color: #1e293b;
+    }
+
+    .benefit-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #475569;
+    }
+
+    .price-container {
+      margin: 25px 0;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #94a3b8;
+      margin-right: 10px;
+    }
+
+    .current-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: #10b981;
+    }
+
+    .price-hint {
+      font-size: 12px !important;
+      color: #94a3b8 !important;
+      margin-top: 5px;
+    }
+
+    /* Botão de Ação Principal */
+    .btn-pay-now {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-pay-now:hover {
+      background: #059669;
+      transform: scale(1.02);
+    }
+
+    .link-corporate {
+      display: block;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
+
+<!-- Banner de Bloqueio e Conversão - PIN Balmoral ESG -->
+<div id="pin-lock-overlay" class="lock-overlay">
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <h2>Acesso Bloqueado: Score Crítico (42%)</h2>
+    <p>O algoritmo do <strong>PIN Balmoral</strong> identificou inconformidades que restringem o acesso do seu hotel a até <strong>68% das linhas de crédito verde</strong> em 2026.</p>
+
+    <div class="benefit-box">
+      <h4>O que você está perdendo:</h4>
+      <ul>
+        <li>📊 Gráficos de Pegada de Carbono e Eficiência Hídrica</li>
+        <li>📋 Plano de Ação Guiado pela Metodologia HumanIA</li>
+        <li>🏅 Certificado Oficial e Selo Verde para Bancos</li>
+      </ul>
+    </div>
+
+    <div class="price-container">
+      <span class="old-price">R$ 297/mês</span>
+      <span class="current-price">R$ 197<sub>/mês</sub></span>
+      <p class="price-hint">Faturado anualmente (R$ 2.364). Ativação imediata.</p>
+    </div>
+
+    <button id="btn-unlock-dashboard" class="btn-pay-now">
+      Destravar Dashboard e Liberar Selo Verde 🚀
+    </button>
+    <a href="apresentacao-institucional.html" class="link-corporate">Falar com Consultor da Holding (Contratos Corporativos)</a>
+  </div>
+</div>
 
 <div class="dashboard-layout">
 
@@ -154,7 +309,7 @@
     </div>
 
     <!-- Dashboard Content -->
-    <div class="dashboard-content">
+    <div class="dashboard-content main-dashboard-content">
 
       <div class="dashboard-risk-card">
         <h4><i class="fa-solid fa-triangle-exclamation"></i> Score ESG: 42% (Nível Crítico)</h4>
@@ -783,6 +938,44 @@ setTimeout(() => {
   const m5 = document.getElementById('progM5');
   if (m5) m5.style.width = '35%';
 }, 800);
+</script>
+
+<script>
+/* =====================================================
+   PIN BALMORAL — Lock Overlay Logic
+   ===================================================== */
+document.addEventListener("DOMContentLoaded", function() {
+  // 1. Elementos da Interface
+  const contentWrapper = document.querySelector(".main-dashboard-content");
+  const lockOverlay = document.getElementById("pin-lock-overlay");
+  const btnUnlock = document.getElementById("btn-unlock-dashboard");
+
+  // 2. Regra de Negócio Básica (Simulando verificação de assinatura)
+  let isPaidUser = false; // Mudar para true quando o gateway confirmar o pagamento
+
+  if (!isPaidUser) {
+    // Força a aplicação do desfoque nos dados de fundo
+    if (contentWrapper) {
+      contentWrapper.classList.add("locked-data");
+    }
+  } else {
+    // Se já pagou, esconde o bloqueio
+    if (lockOverlay) lockOverlay.style.display = "none";
+  }
+
+  // 3. Ação do Botão de Pagamento (Redirecionamento para o Gateway)
+  if (btnUnlock) {
+    btnUnlock.addEventListener("click", function() {
+      // URL fictícia do checkout integrado - Substituir pelo link do Stripe/Asaas/Hotmart
+      const checkoutUrl = "checkout.html?plan=pin_gold&src=dashboard_lock";
+
+      // Log estratégico de rastreabilidade (Etapa 4 e 5 do Guia de Escala)
+      console.log("Redirecionando lead qualificado para a tela de pagamento...");
+
+      window.location.href = checkoutUrl;
+    });
+  }
+});
 </script>
 </body>
 </html>
