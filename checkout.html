@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout Corporativo - PIN Balmoral ESG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --green-900: #0d2b1f;
+      --green-700: #1b4332;
+      --green-500: #40916c;
+      --gold-500: #d4a017;
+      --gold-300: #f0c040;
+      --red-500: #c0392b;
+      --navy-900: #0a1628;
+      --white: #ffffff;
+      --off: #f4f8f6;
+      --text: #1a2e22;
+      --muted: #567565;
+      --shadow: 0 20px 60px rgba(11, 28, 22, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, rgba(212, 160, 23, 0.2), transparent 30%),
+        radial-gradient(circle at 88% 82%, rgba(64, 145, 108, 0.22), transparent 34%),
+        linear-gradient(140deg, #fdfefd, #eef5f1 50%, #f7faf8);
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green-900);
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(212, 160, 23, 0.35);
+      padding: 6px;
+    }
+
+    .brand strong {
+      font-family: "Playfair Display", Georgia, serif;
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    .brand span {
+      font-size: 0.74rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gold-500);
+      font-weight: 700;
+    }
+
+    .safe {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff8e5;
+      border: 1px solid rgba(212, 160, 23, 0.35);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8a6505;
+    }
+
+    .hero {
+      border-radius: 24px;
+      background: linear-gradient(140deg, #0a1628, #173126 60%, #0f261d);
+      padding: clamp(22px, 5vw, 42px);
+      color: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #ffde85;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.12;
+    }
+
+    .hero p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      line-height: 1.62;
+      font-size: 1rem;
+    }
+
+    .impact {
+      border-radius: 16px;
+      background: rgba(192, 57, 43, 0.2);
+      border: 1px solid rgba(255, 131, 118, 0.45);
+      padding: 16px;
+    }
+
+    .impact h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #ffd9d4;
+    }
+
+    .impact p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .lead-box {
+      margin-top: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .plans {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .plan {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1px solid #e3ece6;
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(17, 35, 27, 0.1);
+      position: relative;
+    }
+
+    .plan.recommended {
+      border: 2px solid var(--gold-500);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 42px rgba(212, 160, 23, 0.25);
+    }
+
+    .tag {
+      position: absolute;
+      top: -11px;
+      left: 14px;
+      background: linear-gradient(135deg, #d4a017, #f0c040);
+      color: #162035;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 5px 10px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .plan h3 {
+      margin: 2px 0 6px;
+      font-size: 1.2rem;
+      color: var(--green-900);
+      font-family: "Playfair Display", Georgia, serif;
+    }
+
+    .plan .sub {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      min-height: 32px;
+    }
+
+    .price {
+      margin: 0 0 14px;
+      color: var(--green-900);
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .price small {
+      font-size: 0.78rem;
+      color: #5d7b6a;
+      font-weight: 600;
+    }
+
+    .features {
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .features li {
+      font-size: 0.85rem;
+      color: #2f4c3c;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+
+    .features i { color: var(--green-500); margin-top: 2px; }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 14px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.18s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-main {
+      color: #102538;
+      background: linear-gradient(135deg, #d4a017, #f0c040);
+      box-shadow: 0 10px 22px rgba(212, 160, 23, 0.35);
+    }
+
+    .btn-alt {
+      color: var(--white);
+      background: linear-gradient(135deg, #1b4332, #2d6a4f);
+      box-shadow: 0 10px 20px rgba(27, 67, 50, 0.28);
+    }
+
+    .upsell {
+      margin-top: 18px;
+      border-radius: 20px;
+      padding: 22px;
+      background: linear-gradient(135deg, #0a1628, #1a2e22);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .upsell h3 {
+      margin: 0 0 8px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      color: #ffde85;
+    }
+
+    .upsell p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .upsell .btn {
+      width: auto;
+      min-width: 260px;
+    }
+
+    .foot {
+      margin-top: 16px;
+      font-size: 0.77rem;
+      color: #6f897b;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .plans { grid-template-columns: 1fr; }
+      .plan.recommended { transform: none; }
+      .upsell { grid-template-columns: 1fr; }
+      .upsell .btn { width: 100%; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="index.html">
+        <img src="assets/logo-selo-verde-balmoralesg.png" alt="Selo Verde ESG Balmoral" />
+        <div>
+          <strong>PIN Balmoral ESG</strong>
+          <span>Checkout Corporativo</span>
+        </div>
+      </a>
+      <div class="safe"><i class="fa-solid fa-lock"></i> Ambiente seguro para assinatura recorrente (SaaS)</div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Ativacao Imediata</p>
+          <h1>Economize ate 4.2x no custo de capital do seu proximo financiamento</h1>
+          <p>Assine o PIN Balmoral, receba o plano de acao guiado pelo metodo HumanIA e libere o dashboard interativo com o Relatorio Oficial + Selo Verde ESG Balmoral para apresentacao ao comite de credito.</p>
+        </div>
+        <div>
+          <div class="impact">
+            <h3>Seu diagnostico atual: Score ESG 42% (Critico)</h3>
+            <p>Hoje, esse nivel bloqueia 68% das linhas de financiamento hoteleiro. A ativacao acelera sua trilha para score elegivel acima de 80%.</p>
+          </div>
+          <div class="lead-box" id="leadSummary">Lead corporativo validado para inside sales. Preparando dados de assinatura...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plans" aria-label="Planos de assinatura">
+      <article class="plan">
+        <h3>PIN Gold</h3>
+        <p class="sub">Entrada rapida para estruturacao ESG e desbloqueio de relatorio.</p>
+        <p class="price">R$ 1.990 <small>/mes</small></p>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> Dashboard ESG liberado com trilha guiada</li>
+          <li><i class="fa-solid fa-check"></i> Relatorio mensal para bancos parceiros</li>
+          <li><i class="fa-solid fa-check"></i> Suporte operacional para equipe do hotel</li>
+          <li><i class="fa-solid fa-check"></i> Certificacao PIN Gold em andamento</li>
+        </ul>
+        <a class="btn btn-alt" href="#" onclick="simulateCheckout('PIN Gold')"><i class="fa-solid fa-credit-card"></i> Assinar PIN Gold</a>
+      </article>
+
+      <article class="plan recommended">
+        <span class="tag">Mais escolhido</span>
+        <h3>PIN Platinum</h3>
+        <p class="sub">Escala executiva para elegibilidade agressiva e apresentacao C-Level.</p>
+        <p class="price">R$ 3.990 <small>/mes</small></p>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> Tudo do PIN Gold + governanca avancada</li>
+          <li><i class="fa-solid fa-check"></i> Relatorio oficial com Selo Verde ESG Balmoral</li>
+          <li><i class="fa-solid fa-check"></i> Simulacao de linhas verdes e dossie para banco</li>
+          <li><i class="fa-solid fa-check"></i> Acompanhamento consultivo para score 80+</li>
+        </ul>
+        <a class="btn btn-main" href="#" onclick="simulateCheckout('PIN Platinum')"><i class="fa-solid fa-crown"></i> Assinar PIN Platinum</a>
+      </article>
+
+      <article class="plan">
+        <h3>PIN Enterprise</h3>
+        <p class="sub">Modelo para redes hoteleiras com multiplas unidades e rollout rapido.</p>
+        <p class="price">Sob consulta <small>recorrente</small></p>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> Multiunidade + dashboard consolidado por rede</li>
+          <li><i class="fa-solid fa-check"></i> Onboarding dedicado e governanca por cluster</li>
+          <li><i class="fa-solid fa-check"></i> Integração de comites financeiros e auditoria</li>
+          <li><i class="fa-solid fa-check"></i> Squad dedicado para metas trimestrais ESG</li>
+        </ul>
+        <a class="btn btn-alt" href="#" onclick="simulateCheckout('PIN Enterprise')"><i class="fa-solid fa-phone"></i> Falar com especialista</a>
+      </article>
+    </section>
+
+    <section class="upsell">
+      <div>
+        <h3>Upsell Imediato: Treinamento HumanIA (dos 06 aos 90 mil)</h3>
+        <p>Capacite diretoria, operacao e financeiro para executar o plano ESG com velocidade comercial. Treinamento pratico para transformar compliance em negociacao de capital mais barato.</p>
+      </div>
+      <a class="btn btn-main" href="#" onclick="simulateCheckout('Treinamento HumanIA')"><i class="fa-solid fa-rocket"></i> Adicionar Treinamento HumanIA</a>
+    </section>
+
+    <div class="foot">Abandono de checkout aciona follow-up do time de vendas em ate 15 minutos (playbook Formula Balmoral).</div>
+  </div>
+
+  <script>
+    function simulateCheckout(product) {
+      alert('Integrar gateway de pagamento para: ' + product + '.');
+    }
+
+    (function hydrateLeadSummary() {
+      const summary = document.getElementById('leadSummary');
+      if (!summary) return;
+      try {
+        const raw = localStorage.getItem('pinLeadData');
+        if (!raw) return;
+        const lead = JSON.parse(raw);
+        const name = lead.nome || 'Lead corporativo';
+        const hotel = lead.hotel || 'Hotel informado';
+        const email = lead.email || 'E-mail corporativo';
+        summary.textContent = name + ' | ' + hotel + ' | ' + email + ' | lead sincronizado com inside sales.';
+      } catch (err) {
+        // Fallback padrao sem quebra de pagina.
+      }
+    })();
+  </script>
+</body>
+</html>
